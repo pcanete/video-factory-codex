@@ -1,6 +1,8 @@
-# Video Factory
+# Video Factory — Codex
 
-Fabrica neutral de preproduccion para video generativo. Convierte referencias, briefs y activos autorizados en contratos verificables y paquetes adaptables a herramientas externas. No genera videos localmente y no depende de un vendor unico.
+Version desarrollada por Codex de una fabrica neutral de preproduccion para video generativo. Convierte referencias, briefs y activos autorizados en contratos verificables y paquetes adaptables a herramientas externas. No genera videos localmente y no depende de un vendor unico.
+
+Este repositorio no comparte working tree con la version de Claude. Cada implementacion evoluciona en su propio entorno y consulta a la otra exclusivamente mediante sus repositorios publicos.
 
 ## Estado
 
