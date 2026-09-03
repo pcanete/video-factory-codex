@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildShots, suggestThreshold, suggestThresholdCandidates } from "../skills/video-reference-scanner/scripts/lib/timeline.mjs";
+import { buildShots, sampleTimeline, suggestThreshold, suggestThresholdCandidates } from "../skills/video-reference-scanner/scripts/lib/timeline.mjs";
 
 test("preserva un ultimo plano corto en vez de borrar el corte anterior", () => {
   const { shots } = buildShots([5, 9.8], 10, 0.5);
@@ -42,4 +42,18 @@ test("las sugerencias adaptativas consideran la agrupacion temporal", () => {
   assert.deepEqual(candidates.map((candidate) => candidate.mode), ["conservative", "balanced", "sensitive"]);
   assert.ok(candidates[0].threshold >= candidates[1].threshold);
   assert.ok(candidates[1].threshold >= candidates[2].threshold);
+});
+
+test("muestrea fases internas de un plano sin salir de sus limites", () => {
+  const samples = sampleTimeline(10, 20, 9);
+  assert.equal(samples.length, 9);
+  assert.ok(samples.every((sample, index) => sample.index === index + 1));
+  assert.ok(samples.every((sample) => sample.time_s > 10 && sample.time_s < 20));
+  assert.ok(samples.every((sample, index) => index === 0 || sample.time_s > samples[index - 1].time_s));
+  assert.equal(samples[4].relative_position, 0.5);
+});
+
+test("rechaza una densidad fuera del contrato", () => {
+  assert.throws(() => sampleTimeline(0, 1, 2), /entre 3 y 12/);
+  assert.throws(() => sampleTimeline(2, 1, 3), /invalido/);
 });

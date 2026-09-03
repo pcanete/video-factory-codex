@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sequence Continuity Builder"
+  short_description: "Modela personajes, objetos y estados entre planos"
+  default_prompt: "Usa $sequence-continuity-builder para convertir este guion o referencia compleja en estados y controles verificables."

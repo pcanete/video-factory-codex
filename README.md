@@ -6,10 +6,11 @@ Este repositorio no comparte working tree con la version de Claude. Cada impleme
 
 ## Estado
 
-Cinco capacidades construidas y verificadas:
+Seis capacidades construidas y verificadas:
 
 - `video-reference-scanner`: referencia -> evidencia y gramatica audiovisual.
 - `character-pack-builder`: referencias autorizadas -> identidad portable y versionada.
+- `sequence-continuity-builder`: guion o referencia compleja -> estados verificables de personajes y objetos.
 - `shot-plan-builder`: concepto + gramatica + character pack -> contrato neutral de planos.
 - `keyframe-test-builder`: plano + identidad -> candidato estatico con puerta humana antes de animar.
 - `video-vendor-compiler`: keyframe aprobado -> trabajo externo con schema, costo y autorización explícita.
@@ -30,11 +31,12 @@ La primera prueba privada usa un personaje sintetico propiedad del usuario. Sus 
 skills/
   video-reference-scanner/  # construida: referencia -> evidencia + gramatica
   character-pack-builder/   # construida: identidad versionada y permisos
+  sequence-continuity-builder/ # construida: entidades, beats y continuidad de estados
   shot-plan-builder/        # construida: tratamiento -> contrato de planos
   keyframe-test-builder/    # construida: validar un frame antes de animar
   video-vendor-compiler/    # construida: compilar y controlar el trabajo externo
   video-creative-director/  # proxima: brief -> tratamiento
-  continuity-qa/            # proxima: clips -> control de deriva
+  continuity-qa/            # proxima: clips -> cumplimiento de checks y control de deriva
 ```
 
 Solo se implementa una capacidad cuando existe un caso real que permita probarla.

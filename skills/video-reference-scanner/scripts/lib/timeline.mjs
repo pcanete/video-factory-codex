@@ -62,3 +62,21 @@ export function suggestThresholdCandidates(scores, duration, minShot = 0.5) {
     threshold: suggestThreshold(scores, duration, minShot, candidate.target_shot_s),
   }));
 }
+
+export function sampleTimeline(start, end, count = 3) {
+  if (!(Number.isFinite(start) && Number.isFinite(end) && end > start)) throw new Error("intervalo temporal invalido");
+  if (!Number.isInteger(count) || count < 3 || count > 12) throw new Error("count debe ser un entero entre 3 y 12");
+  const duration = end - start;
+  const margin = Math.min(0.35, duration * 0.15);
+  const first = start + margin;
+  const last = end - margin;
+  return Array.from({ length: count }, (_, index) => {
+    const ratio = count === 1 ? 0.5 : index / (count - 1);
+    const time = first + (last - first) * ratio;
+    return {
+      index: index + 1,
+      time_s: round(time),
+      relative_position: round((time - start) / duration, 4),
+    };
+  });
+}

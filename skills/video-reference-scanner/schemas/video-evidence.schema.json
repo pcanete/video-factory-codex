@@ -7,7 +7,7 @@
   "required": ["contract", "version", "run_id", "generated_at", "source", "runtime", "technical", "parameters", "rhythm", "shots", "diagnostic", "pending_interpretation"],
   "properties": {
     "contract": { "const": "VIDEO_EVIDENCE" },
-    "version": { "const": "0.1.0" },
+    "version": { "const": "0.2.0" },
     "run_id": { "type": "string", "minLength": 1 },
     "generated_at": { "type": "string", "format": "date-time" },
     "source": {
@@ -30,14 +30,30 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["index", "start_s", "end_s", "duration_s", "frame"],
+        "required": ["index", "start_s", "end_s", "duration_s", "frame", "temporal_samples"],
         "properties": {
           "index": { "type": "integer", "minimum": 1 },
           "start_s": { "type": "number", "minimum": 0 },
           "end_s": { "type": "number", "exclusiveMinimum": 0 },
           "duration_s": { "type": "number", "exclusiveMinimum": 0 },
           "frame": { "type": "string" },
-          "motion_strip": { "type": ["string", "null"] }
+          "motion_strip": { "type": ["string", "null"] },
+          "temporal_samples": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 12,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["index", "time_s", "relative_position", "frame"],
+              "properties": {
+                "index": { "type": "integer", "minimum": 1 },
+                "time_s": { "type": "number", "minimum": 0 },
+                "relative_position": { "type": "number", "minimum": 0, "maximum": 1 },
+                "frame": { "type": "string", "minLength": 1 }
+              }
+            }
+          }
         }
       }
     },

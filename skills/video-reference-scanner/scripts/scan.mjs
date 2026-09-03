@@ -4,9 +4,9 @@ import { createHash } from "node:crypto";
 import { createReadStream, existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
 import { findBinary, run, siblingBinary } from "./lib/runtime.mjs";
-import { buildShots, suggestThresholdCandidates } from "./lib/timeline.mjs";
+import { buildShots, sampleTimeline, suggestThresholdCandidates } from "./lib/timeline.mjs";
 
-const VERSION = "0.1.0";
+const VERSION = "0.2.0";
 const round = (value, digits = 3) => Number(value.toFixed(digits));
 
 function fail(message) {
@@ -26,13 +26,14 @@ function parseArgs(argv) {
     threshold: Number(value("threshold", "0.35")),
     minShot: Number(value("min-shot", "0.5")),
     width: Number(value("width", "640")),
+    samplesPerShot: Number(value("samples-per-shot", argv.includes("--dense") ? "9" : "3")),
     ffmpeg: value("ffmpeg"),
     ffprobe: value("ffprobe"),
   };
 }
 
 function help() {
-  console.log(`video-reference-scanner ${VERSION}\n\nuso:\n  node scan.mjs <video-local> --out <directorio> [opciones]\n\nopciones:\n  --threshold <n>  umbral de cambio de escena (default 0.35)\n  --min-shot <s>   fusiona detecciones consecutivas mas cercanas (default 0.5)\n  --width <px>     ancho de frames (default 640)\n  --ffmpeg <ruta>  binario FFmpeg\n  --ffprobe <ruta> binario ffprobe opcional\n`);
+  console.log(`video-reference-scanner ${VERSION}\n\nuso:\n  node scan.mjs <video-local> --out <directorio> [opciones]\n\nopciones:\n  --threshold <n>         umbral de cambio de escena (default 0.35)\n  --min-shot <s>          fusiona detecciones consecutivas mas cercanas (default 0.5)\n  --width <px>            ancho de frames (default 640)\n  --samples-per-shot <n>  muestras temporales por plano, entre 3 y 12 (default 3)\n  --dense                 atajo para 9 muestras temporales por plano\n  --ffmpeg <ruta>         binario FFmpeg\n  --ffprobe <ruta>        binario ffprobe opcional\n`);
 }
 
 async function sha256(file) {
@@ -116,6 +117,14 @@ function makeContact(ffmpeg, framesDir, count, destination) {
   return result.status === 0 && existsSync(destination);
 }
 
+function makeTemporalGrid(ffmpeg, framesDir, id, count, destination) {
+  const columns = Math.ceil(Math.sqrt(count));
+  const rows = Math.ceil(count / columns);
+  const pattern = join(framesDir, `motion-${id}-%02d.png`);
+  const result = run(ffmpeg, ["-v", "error", "-framerate", "1", "-start_number", "1", "-i", pattern, "-vf", `tile=${columns}x${rows}:margin=8:padding=6`, "-frames:v", "1", "-y", destination], { allowFailure: true });
+  return result.status === 0 && existsSync(destination);
+}
+
 function analyzeAudio(ffmpeg, source, technicalAudio) {
   if (!technicalAudio) return null;
   const result = run(ffmpeg, ["-hide_banner", "-i", source, "-af", "volumedetect", "-f", "null", "-"], { allowFailure: true });
@@ -157,6 +166,7 @@ if (!existsSync(source)) fail(`no existe el archivo: ${source}`);
 if (!(args.threshold > 0 && args.threshold <= 1)) fail("--threshold debe estar entre 0 y 1");
 if (!(args.minShot >= 0)) fail("--min-shot no puede ser negativo");
 if (!(args.width >= 160 && args.width <= 3840)) fail("--width debe estar entre 160 y 3840");
+if (!Number.isInteger(args.samplesPerShot) || args.samplesPerShot < 3 || args.samplesPerShot > 12) fail("--samples-per-shot debe ser un entero entre 3 y 12");
 
 const ffmpeg = findBinary("ffmpeg", args.ffmpeg, "VIDEO_FACTORY_FFMPEG");
 if (!ffmpeg) fail("FFmpeg no esta en PATH. Usa --ffmpeg o VIDEO_FACTORY_FFMPEG.");
@@ -190,17 +200,13 @@ for (const shot of shots) {
   extractFrame(ffmpeg, source, middle, join(framesDir, frameName), args.width);
   shot.frame = `frames/${frameName}`;
   shot.motion_strip = null;
-  if (shot.duration_s >= 1) {
-    const margin = Math.min(0.35, shot.duration_s * 0.15);
-    const stripParts = [shot.start_s + margin, middle, shot.end_s - margin].map((time, index) => {
-      const file = join(framesDir, `motion-${id}-${index + 1}.png`);
-      extractFrame(ffmpeg, source, time, file, args.width);
-      return file;
-    });
-    const strip = join(output, `motion-${id}.png`);
-    const stack = run(ffmpeg, ["-v", "error", ...stripParts.flatMap((file) => ["-i", file]), "-filter_complex", "hstack=inputs=3", "-y", strip], { allowFailure: true });
-    if (stack.status === 0 && existsSync(strip)) shot.motion_strip = basename(strip);
-  }
+  shot.temporal_samples = sampleTimeline(shot.start_s, shot.end_s, args.samplesPerShot).map((sample) => {
+    const sampleName = `motion-${id}-${String(sample.index).padStart(2, "0")}.png`;
+    extractFrame(ffmpeg, source, sample.time_s, join(framesDir, sampleName), args.width);
+    return { ...sample, frame: `frames/${sampleName}` };
+  });
+  const strip = join(output, `motion-${id}.png`);
+  if (makeTemporalGrid(ffmpeg, framesDir, id, args.samplesPerShot, strip)) shot.motion_strip = basename(strip);
 }
 
 const contactPath = join(output, "contact.png");
@@ -217,7 +223,7 @@ const evidence = {
   source: { file_name: basename(source), sha256: await sha256(source) },
   runtime: { node: process.version, ffmpeg: basename(ffmpeg), ffprobe: ffprobe ? basename(ffprobe) : null },
   technical,
-  parameters: { scene_threshold: args.threshold, min_shot_s: args.minShot, frame_width_px: args.width },
+  parameters: { scene_threshold: args.threshold, min_shot_s: args.minShot, frame_width_px: args.width, samples_per_shot: args.samplesPerShot },
   rhythm: rhythm(shots, technical.duration_s),
   audio: analyzeAudio(ffmpeg, source, technical.audio),
   shots,
@@ -229,7 +235,8 @@ const evidence = {
     threshold_candidates: thresholdCandidates,
     warnings: [
       probeWarning,
-      thresholdSuggestion === null ? null : "Se detecto un solo plano largo. No asumir toma continua: comparar corridas conservadora, equilibrada y sensible antes de interpretar."
+      thresholdSuggestion === null ? null : "Se detecto un solo plano largo. No asumir toma continua: comparar corridas conservadora, equilibrada y sensible antes de interpretar.",
+      shots.some((shot) => shot.duration_s >= 8) && args.samplesPerShot < 7 ? "Hay planos de ocho segundos o mas. Repetir con --dense para observar subacciones y cambios de estado internos." : null
     ].filter(Boolean),
     contact_sheet: contactCreated ? "contact.png" : null,
   },
@@ -239,6 +246,7 @@ const evidence = {
     "luz, paleta y textura",
     "tipo de transicion",
     "estructura narrativa",
+    "subacciones y cambios de estado de personajes u objetos entre temporal_samples",
     "replicabilidad contra un modelo y version concretos"
   ],
 };

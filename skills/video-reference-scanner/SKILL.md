@@ -21,13 +21,14 @@ Convierte una referencia audiovisual en evidencia verificable y decisiones de di
 1. Confirmar que la fuente puede analizarse y que el uso pedido es de estudio o transformacion de gramatica.
 2. Ejecutar `scripts/scan.mjs` con una ruta local. Para opciones, usar `--help`.
 3. Revisar `diagnostico` antes de aceptar el corte automatico de planos. Si aparece un solo plano largo, no asumir toma continua: usar `threshold_candidates` para generar corridas conservadora, equilibrada y sensible, y comparar sus hojas de contacto.
-4. Abrir primero `contact.png`, luego las tiras `motion-*.png` y finalmente los frames individuales necesarios.
-5. Leer [references/interpretation-guide.md](references/interpretation-guide.md) para sintetizar ritmo, encuadre, camara, luz/color, transiciones, audio y estructura.
-6. Escribir en el directorio del escaneo:
+4. Para referencias con acciones encadenadas, objetos que cambian de estado, planos secuencia, morphs o transiciones internas, repetir con `--dense`. Esto extrae nueve muestras por plano para distinguir subacciones sin inventar cortes.
+5. Abrir primero `contact.png`, luego las tiras `motion-*.png` y finalmente los frames individuales necesarios. Las posiciones temporales son mediciones; el sentido de cada fase sigue siendo interpretación.
+6. Leer [references/interpretation-guide.md](references/interpretation-guide.md) para sintetizar ritmo, encuadre, camara, luz/color, transiciones, audio y estructura.
+7. Escribir en el directorio del escaneo:
    - `VIDEO_DNA.json`: reglas reutilizables con evidencia y confianza.
    - `VIDEO_REPORT.md`: explicacion humana, limitaciones y vocabulario anclado a planos.
    - `SHOT_TEMPLATE.json`: funciones narrativas y parametros vaciados del contenido original.
-7. Validar los JSON contra los schemas en `schemas/`.
+8. Validar los JSON contra los schemas en `schemas/`.
 
 ## Ejecucion
 
@@ -39,6 +40,12 @@ El motor crea un subdirectorio nuevo por corrida para evitar mezclar evidencias.
 
 ```powershell
 node scripts/scan.mjs referencia.mp4 --out analisis --ffmpeg C:\tools\ffmpeg.exe --ffprobe C:\tools\ffprobe.exe
+```
+
+Para una lectura temporal densa:
+
+```powershell
+node scripts/scan.mjs referencia.mp4 --out analisis --dense
 ```
 
 Tambien reconoce `VIDEO_FACTORY_FFMPEG` y `VIDEO_FACTORY_FFPROBE`. Si `ffprobe` no existe, obtiene una ficha tecnica reducida desde `ffmpeg` y lo declara.
@@ -55,10 +62,10 @@ No declarar que un plano es universalmente posible o imposible. Evaluarlo contra
 
 Si no se conoce el modelo destino, el veredicto es preliminar.
 
-## Limites v0.1
+## Limites v0.2
 
 - Entrada por URL todavia no esta implementada; descargar la referencia por un medio autorizado y analizar el archivo local.
 - El detector de escenas propone cortes, no sustituye la revision visual.
 - Las disolvencias, morphs y transiciones fluidas pueden requerir una segunda pasada con los umbrales adaptativos del diagnostico.
-- La transcripcion no forma parte del motor v0.1.
+- La transcripcion no forma parte del motor v0.2.
 - Movimiento de camara se conserva como tarea interpretativa; las tiras temporales son evidencia, no una clasificacion automatica definitiva.

@@ -1,0 +1,155 @@
+{
+  "contract": "SEQUENCE_CONTINUITY",
+  "version": "0.1.0",
+  "sequence_id": "synthetic-notebook-sequence",
+  "title": "The closed notebook",
+  "source": {
+    "type": "script",
+    "refs": ["synthetic-script:scene-1"]
+  },
+  "duration_target_s": 9,
+  "entities": [
+    {
+      "id": "character-main",
+      "kind": "character",
+      "label": "Authorized synthetic adult character",
+      "anchor_refs": ["character-pack:synthetic-character-v1"],
+      "invariants": {
+        "identity": "same approved adult character",
+        "wardrobe": "dark blue top",
+        "hair": "dark wavy hair"
+      },
+      "mutable_attributes": ["position", "gaze", "right-hand"]
+    },
+    {
+      "id": "notebook",
+      "kind": "prop",
+      "label": "Closed green notebook",
+      "anchor_refs": ["prop-sheet:green-notebook-v1"],
+      "invariants": {
+        "appearance": "dark green unbranded cloth cover",
+        "dimensions": "constant rectangular proportions"
+      },
+      "mutable_attributes": ["location", "closure", "contact"]
+    },
+    {
+      "id": "room",
+      "kind": "environment",
+      "label": "Private reading room",
+      "anchor_refs": ["environment-board:reading-room-v1"],
+      "invariants": {
+        "geometry": "same chair, table and shelves",
+        "time": "after midnight"
+      },
+      "mutable_attributes": ["light"]
+    }
+  ],
+  "beats": [
+    {
+      "index": 1,
+      "id": "notice-object",
+      "duration_s": 3,
+      "narrative_function": "Connect the character's attention to the object.",
+      "knowledge_state": "authored",
+      "evidence_refs": ["synthetic-script:scene-1:line-1"],
+      "visible_entities": ["character-main", "notebook", "room"],
+      "state_before": {
+        "character-main": { "position": "seated", "gaze": "forward", "right-hand": "on-lap" },
+        "notebook": { "location": "on-table", "closure": "closed", "contact": "none" },
+        "room": { "light": "steady-amber-left" }
+      },
+      "actions": [
+        {
+          "actor_id": "character-main",
+          "verb": "lowers gaze toward notebook",
+          "target_id": "notebook",
+          "changes": [
+            { "entity_id": "character-main", "attribute": "gaze", "from": "forward", "to": "notebook" }
+          ],
+          "constraints": ["no head turn", "lips remain closed"]
+        }
+      ],
+      "state_after": {
+        "character-main": { "position": "seated", "gaze": "notebook", "right-hand": "on-lap" },
+        "notebook": { "location": "on-table", "closure": "closed", "contact": "none" },
+        "room": { "light": "steady-amber-left" }
+      },
+      "observable_checks": [
+        { "id": "gaze-reaches-notebook", "criterion": "The gaze ends on the notebook without facial drift.", "evidence_needed": "temporal_samples", "severity": "required" }
+      ]
+    },
+    {
+      "index": 2,
+      "id": "touch-object",
+      "duration_s": 3,
+      "narrative_function": "Create physical contact without opening the object.",
+      "knowledge_state": "authored",
+      "evidence_refs": ["synthetic-script:scene-1:line-2"],
+      "visible_entities": ["character-main", "notebook", "room"],
+      "state_before": {
+        "character-main": { "position": "seated", "gaze": "notebook", "right-hand": "on-lap" },
+        "notebook": { "location": "on-table", "closure": "closed", "contact": "none" },
+        "room": { "light": "steady-amber-left" }
+      },
+      "actions": [
+        {
+          "actor_id": "character-main",
+          "verb": "rests right hand on notebook",
+          "target_id": "notebook",
+          "changes": [
+            { "entity_id": "character-main", "attribute": "right-hand", "from": "on-lap", "to": "on-notebook" },
+            { "entity_id": "notebook", "attribute": "contact", "from": "none", "to": "right-hand" }
+          ],
+          "constraints": ["notebook remains closed", "left hand remains still"]
+        }
+      ],
+      "state_after": {
+        "character-main": { "position": "seated", "gaze": "notebook", "right-hand": "on-notebook" },
+        "notebook": { "location": "on-table", "closure": "closed", "contact": "right-hand" },
+        "room": { "light": "steady-amber-left" }
+      },
+      "observable_checks": [
+        { "id": "hand-object-contact", "criterion": "The right hand reaches the cover with five stable fingers and the notebook stays closed.", "evidence_needed": "full_clip", "severity": "required" }
+      ]
+    },
+    {
+      "index": 3,
+      "id": "make-decision",
+      "duration_s": 3,
+      "narrative_function": "Resolve the internal decision through gaze.",
+      "knowledge_state": "authored",
+      "evidence_refs": ["synthetic-script:scene-1:line-3"],
+      "visible_entities": ["character-main", "notebook", "room"],
+      "state_before": {
+        "character-main": { "position": "seated", "gaze": "notebook", "right-hand": "on-notebook" },
+        "notebook": { "location": "on-table", "closure": "closed", "contact": "right-hand" },
+        "room": { "light": "steady-amber-left" }
+      },
+      "actions": [
+        {
+          "actor_id": "character-main",
+          "verb": "raises gaze off camera",
+          "target_id": null,
+          "changes": [
+            { "entity_id": "character-main", "attribute": "gaze", "from": "notebook", "to": "off-camera" }
+          ],
+          "constraints": ["head remains nearly still", "no speech or lip movement"]
+        }
+      ],
+      "state_after": {
+        "character-main": { "position": "seated", "gaze": "off-camera", "right-hand": "on-notebook" },
+        "notebook": { "location": "on-table", "closure": "closed", "contact": "right-hand" },
+        "room": { "light": "steady-amber-left" }
+      },
+      "observable_checks": [
+        { "id": "decision-without-speech", "criterion": "The gaze rises while identity remains stable and lips stay closed.", "evidence_needed": "full_clip", "severity": "required" }
+      ]
+    }
+  ],
+  "global_constraints": [
+    "The character, wardrobe, notebook and room remain the same across all beats.",
+    "The notebook never opens and no text appears.",
+    "Every required check must pass before assembly."
+  ],
+  "human_gates": ["script_approval", "state_approval", "keyframe_approval", "clip_approval", "assembly_approval"]
+}

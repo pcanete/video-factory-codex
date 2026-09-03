@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://video-factory.local/schemas/sequence-continuity.schema.json",
+  "title": "SEQUENCE_CONTINUITY",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "version", "sequence_id", "title", "source", "duration_target_s", "entities", "beats", "global_constraints", "human_gates"],
+  "properties": {
+    "contract": { "const": "SEQUENCE_CONTINUITY" },
+    "version": { "const": "0.1.0" },
+    "sequence_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "title": { "type": "string", "minLength": 1 },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "refs"],
+      "properties": {
+        "type": { "enum": ["reference", "script", "hybrid"] },
+        "refs": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "duration_target_s": { "type": "number", "exclusiveMinimum": 0 },
+    "entities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "label", "anchor_refs", "invariants", "mutable_attributes"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "kind": { "enum": ["character", "prop", "environment"] },
+          "label": { "type": "string", "minLength": 1 },
+          "anchor_refs": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+          "invariants": { "type": "object", "minProperties": 1, "additionalProperties": { "type": "string", "minLength": 1 } },
+          "mutable_attributes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" } }
+        }
+      }
+    },
+    "beats": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["index", "id", "duration_s", "narrative_function", "knowledge_state", "evidence_refs", "visible_entities", "state_before", "actions", "state_after", "observable_checks"],
+        "properties": {
+          "index": { "type": "integer", "minimum": 1 },
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "duration_s": { "type": "number", "exclusiveMinimum": 0 },
+          "narrative_function": { "type": "string", "minLength": 1 },
+          "knowledge_state": { "enum": ["observed", "inferred", "authored"] },
+          "evidence_refs": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+          "visible_entities": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+          "state_before": { "$ref": "#/$defs/stateMap" },
+          "actions": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["actor_id", "verb", "target_id", "changes", "constraints"],
+              "properties": {
+                "actor_id": { "type": "string", "minLength": 1 },
+                "verb": { "type": "string", "minLength": 1 },
+                "target_id": { "type": ["string", "null"] },
+                "changes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["entity_id", "attribute", "from", "to"],
+                    "properties": {
+                      "entity_id": { "type": "string", "minLength": 1 },
+                      "attribute": { "type": "string", "minLength": 1 },
+                      "from": { "type": "string", "minLength": 1 },
+                      "to": { "type": "string", "minLength": 1 }
+                    }
+                  }
+                },
+                "constraints": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+              }
+            }
+          },
+          "state_after": { "$ref": "#/$defs/stateMap" },
+          "observable_checks": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "criterion", "evidence_needed", "severity"],
+              "properties": {
+                "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+                "criterion": { "type": "string", "minLength": 1 },
+                "evidence_needed": { "enum": ["start_frame", "end_frame", "temporal_samples", "full_clip", "audio"] },
+                "severity": { "enum": ["required", "preferred"] }
+              }
+            }
+          },
+          "continuity_breaks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["entity_id", "attribute", "reason"],
+              "properties": {
+                "entity_id": { "type": "string", "minLength": 1 },
+                "attribute": { "type": "string", "minLength": 1 },
+                "reason": { "type": "string", "minLength": 1 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "global_constraints": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "human_gates": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": { "enum": ["script_approval", "state_approval", "keyframe_approval", "clip_approval", "assembly_approval"] }
+    }
+  },
+  "$defs": {
+    "stateMap": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "minProperties": 1,
+        "additionalProperties": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
