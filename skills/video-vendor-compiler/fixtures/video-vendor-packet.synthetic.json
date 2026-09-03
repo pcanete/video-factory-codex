@@ -1,0 +1,33 @@
+{
+  "contract": "VIDEO_VENDOR_PACKET",
+  "version": "0.1.0",
+  "packet_id": "sample-video-job",
+  "vendor": "Higgsfield",
+  "source": {
+    "shot_plan_ref": "sample-piece",
+    "shot_index": 1,
+    "approved_keyframe": "https://example.invalid/keyframe.png",
+    "keyframe_status": "approved",
+    "approval_date": "2026-09-03"
+  },
+  "settings": {
+    "job_type": "kling3_0",
+    "mode": "std",
+    "aspect_ratio": "9:16",
+    "target_duration_s": 5,
+    "sound": "off",
+    "camera_control": "locked-off"
+  },
+  "motion_prompt": "The adult character breathes naturally while the camera remains fixed.",
+  "negative_motion": "identity drift, pan, tilt, orbit, zoom",
+  "acceptance": ["Identity remains stable."],
+  "stop_conditions": ["Do not create a second variant before review."],
+  "authorization": {
+    "approved": false,
+    "approved_at": null,
+    "estimated_credits": null,
+    "max_credits": null,
+    "generation_limit": 1
+  },
+  "status": "ready_for_cost_estimate"
+}

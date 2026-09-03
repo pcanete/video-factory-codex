@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/video-factory/video-vendor-packet.schema.json",
+  "title": "VIDEO_VENDOR_PACKET",
+  "type": "object",
+  "required": ["contract", "version", "packet_id", "vendor", "source", "settings", "motion_prompt", "negative_motion", "acceptance", "stop_conditions", "authorization", "status"],
+  "properties": {
+    "contract": { "const": "VIDEO_VENDOR_PACKET" },
+    "version": { "type": "string", "minLength": 1 },
+    "packet_id": { "type": "string", "minLength": 1 },
+    "vendor": { "const": "Higgsfield" },
+    "source": {
+      "type": "object",
+      "required": ["shot_plan_ref", "shot_index", "approved_keyframe", "keyframe_status"],
+      "properties": {
+        "shot_plan_ref": { "type": "string", "minLength": 1 },
+        "shot_index": { "type": "integer", "minimum": 1 },
+        "approved_keyframe": { "type": "string", "minLength": 1 },
+        "keyframe_status": { "const": "approved" },
+        "approval_date": { "type": "string", "minLength": 1 }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "required": ["job_type", "mode", "aspect_ratio", "target_duration_s", "sound"],
+      "properties": {
+        "job_type": { "type": "string", "minLength": 1 },
+        "mode": { "type": "string", "minLength": 1 },
+        "aspect_ratio": { "type": "string", "minLength": 1 },
+        "target_duration_s": { "type": "integer", "minimum": 1 },
+        "sound": { "enum": ["on", "off"] },
+        "camera_control": { "type": "string" },
+        "audio": { "type": "string" },
+        "dialogue": { "type": "string" }
+      }
+    },
+    "motion_prompt": { "type": "string", "minLength": 1 },
+    "negative_motion": { "type": "string", "minLength": 1 },
+    "acceptance": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "stop_conditions": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "authorization": {
+      "type": "object",
+      "required": ["approved", "estimated_credits", "max_credits", "generation_limit"],
+      "properties": {
+        "approved": { "type": "boolean" },
+        "approved_at": { "type": ["string", "null"] },
+        "estimated_credits": { "type": ["number", "null"], "minimum": 0 },
+        "max_credits": { "type": ["number", "null"], "minimum": 0 },
+        "generation_limit": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "result": { "type": "object" },
+    "qa": { "type": "object" },
+    "status": { "enum": ["ready_for_cost_estimate", "awaiting_authorization", "authorized", "generated_qa_pending", "approved", "rejected"] }
+  }
+}

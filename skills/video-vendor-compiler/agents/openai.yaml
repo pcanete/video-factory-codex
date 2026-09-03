@@ -1,0 +1,4 @@
+interface:
+  display_name: "Video Vendor Compiler"
+  short_description: "Compila y controla trabajos de video externos"
+  default_prompt: "Usa $video-vendor-compiler para preparar este plano aprobado para el proveedor y revisar el costo antes de generar."
