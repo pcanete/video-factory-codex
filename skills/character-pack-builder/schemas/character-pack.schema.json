@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://video-factory.local/schemas/character-pack.schema.json",
+  "title": "CHARACTER_PACK",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract",
+    "version",
+    "character_id",
+    "display_name",
+    "nature",
+    "ownership",
+    "reference_groups",
+    "identity_locks",
+    "allowed_variation",
+    "forbidden_drift",
+    "vendor_bindings",
+    "known_gaps",
+    "publication"
+  ],
+  "properties": {
+    "contract": {
+      "const": "CHARACTER_PACK"
+    },
+    "version": {
+      "const": "0.1.0"
+    },
+    "character_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nature": {
+      "enum": [
+        "synthetic_character",
+        "real_person",
+        "mixed",
+        "unknown"
+      ]
+    },
+    "ownership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "evidence_note"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "user_owned",
+            "licensed",
+            "pending",
+            "unknown"
+          ]
+        },
+        "evidence_note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "reference_groups": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonical",
+        "provisional",
+        "stress_test"
+      ],
+      "properties": {
+        "canonical": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/reference"
+          }
+        },
+        "provisional": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reference"
+          }
+        },
+        "stress_test": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reference"
+          }
+        }
+      }
+    },
+    "identity_locks": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      },
+      "required": [
+        "face",
+        "hair",
+        "body",
+        "wardrobe",
+        "hands"
+      ]
+    },
+    "allowed_variation": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "forbidden_drift": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "vendor_bindings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/binding"
+      }
+    },
+    "known_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest",
+        "assets"
+      ],
+      "properties": {
+        "manifest": {
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "assets": {
+          "const": "private_only"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "path",
+        "role",
+        "provenance"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provenance": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "vendor",
+        "mechanism",
+        "status"
+      ],
+      "properties": {
+        "vendor": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mechanism": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "not_configured",
+            "ready",
+            "verified",
+            "invalid"
+          ]
+        },
+        "reference_id": {
+          "type": "string"
+        },
+        "last_verified": {
+          "type": "string",
+          "format": "date"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

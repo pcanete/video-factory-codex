@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://video-factory.local/schemas/shot-plan.schema.json",
+  "title": "SHOT_PLAN",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract",
+    "version",
+    "piece_id",
+    "title",
+    "duration_target_s",
+    "orientation",
+    "concept",
+    "reference_grammar",
+    "character_pack_refs",
+    "global_continuity",
+    "shots",
+    "human_gates"
+  ],
+  "properties": {
+    "contract": {
+      "const": "SHOT_PLAN"
+    },
+    "version": {
+      "const": "0.1.0"
+    },
+    "piece_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "duration_target_s": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "orientation": {
+      "enum": [
+        "horizontal",
+        "vertical",
+        "square"
+      ]
+    },
+    "concept": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reference_grammar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "transfer",
+        "do_not_copy"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transfer": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "do_not_copy": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "character_pack_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "global_continuity": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "shots": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/shot"
+      }
+    },
+    "human_gates": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "enum": [
+          "concept_approval",
+          "keyframe_approval",
+          "clip_approval",
+          "final_assembly_approval"
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "shot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "index",
+        "duration_s",
+        "narrative_function",
+        "subject",
+        "action",
+        "framing",
+        "camera",
+        "light",
+        "environment",
+        "style",
+        "identity_refs",
+        "keyframe_brief",
+        "transition_out",
+        "audio_role",
+        "risk",
+        "success_criteria"
+      ],
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "duration_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "narrative_function": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subject": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "framing": {
+          "type": "string",
+          "minLength": 1
+        },
+        "camera": {
+          "type": "string",
+          "minLength": 1
+        },
+        "light": {
+          "type": "string",
+          "minLength": 1
+        },
+        "environment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "style": {
+          "type": "string",
+          "minLength": 1
+        },
+        "identity_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "keyframe_brief": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transition_out": {
+          "type": "string",
+          "minLength": 1
+        },
+        "audio_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "risk": {
+          "type": "string",
+          "minLength": 1
+        },
+        "success_criteria": {
+          "type": "string",
+          "minLength": 1
+        },
+        "difficulty": {
+          "enum": [
+            "controlled",
+            "moderate",
+            "stretch"
+          ]
+        }
+      }
+    }
+  }
+}

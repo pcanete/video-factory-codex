@@ -1,0 +1,81 @@
+{
+  "contract": "SHOT_PLAN",
+  "version": "0.1.0",
+  "piece_id": "sample-piece",
+  "title": "Synthetic Sample",
+  "duration_target_s": 6,
+  "orientation": "vertical",
+  "concept": "A synthetic character crosses a neutral room and pauses by a window.",
+  "reference_grammar": {
+    "source": "synthetic reference",
+    "transfer": [
+      "slow reveal",
+      "alternation of medium shot and detail"
+    ],
+    "do_not_copy": [
+      "characters",
+      "brands",
+      "dialogue",
+      "distinctive compositions"
+    ]
+  },
+  "character_pack_refs": [
+    "sample-character"
+  ],
+  "global_continuity": {
+    "character": "Use the approved synthetic character pack.",
+    "wardrobe": "Grey outfit remains unchanged.",
+    "environment": "One neutral room.",
+    "light": "Soft daylight from frame left."
+  },
+  "shots": [
+    {
+      "index": 1,
+      "duration_s": 3,
+      "narrative_function": "establish subject and world",
+      "subject": "sample character",
+      "action": "enters the room",
+      "framing": "medium-wide",
+      "camera": "slow push-in",
+      "light": "soft daylight from frame left",
+      "environment": "neutral room",
+      "style": "restrained editorial realism",
+      "identity_refs": [
+        "front-neutral"
+      ],
+      "keyframe_brief": "Character entering with face visible in three-quarter view.",
+      "transition_out": "straight cut",
+      "audio_role": "room tone and restrained music",
+      "risk": "body proportions may drift during walking",
+      "success_criteria": "face, outfit and body remain stable",
+      "difficulty": "moderate"
+    },
+    {
+      "index": 2,
+      "duration_s": 3,
+      "narrative_function": "resolve with an emotional portrait",
+      "subject": "sample character",
+      "action": "pauses and looks toward the window",
+      "framing": "close-up",
+      "camera": "locked frame with minimal internal movement",
+      "light": "soft daylight across the face",
+      "environment": "same neutral room",
+      "style": "restrained editorial realism",
+      "identity_refs": [
+        "front-neutral"
+      ],
+      "keyframe_brief": "Close portrait with neutral expression and consistent face.",
+      "transition_out": "fade to black",
+      "audio_role": "music resolves",
+      "risk": "eyes may lose symmetry",
+      "success_criteria": "facial geometry and eye color match the canonical anchor",
+      "difficulty": "controlled"
+    }
+  ],
+  "human_gates": [
+    "concept_approval",
+    "keyframe_approval",
+    "clip_approval",
+    "final_assembly_approval"
+  ]
+}

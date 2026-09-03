@@ -1,0 +1,48 @@
+{
+  "contract": "CHARACTER_PACK",
+  "version": "0.1.0",
+  "character_id": "sample-character",
+  "display_name": "Sample Character",
+  "nature": "synthetic_character",
+  "ownership": {
+    "status": "user_owned",
+    "evidence_note": "Synthetic fixture created for automated validation."
+  },
+  "reference_groups": {
+    "canonical": [
+      {
+        "id": "front-neutral",
+        "path": "https://example.invalid/front.png",
+        "role": "front neutral identity anchor",
+        "provenance": "synthetic fixture"
+      }
+    ],
+    "provisional": [],
+    "stress_test": []
+  },
+  "identity_locks": {
+    "face": "Preserve facial geometry from canonical anchor.",
+    "hair": "Dark shoulder-length hair.",
+    "body": "Adult medium-build silhouette.",
+    "wardrobe": "Neutral grey outfit for fixture.",
+    "hands": "Natural five-finger anatomy."
+  },
+  "allowed_variation": [
+    "expression",
+    "camera distance"
+  ],
+  "forbidden_drift": [
+    "eye color",
+    "facial geometry",
+    "hair length"
+  ],
+  "vendor_bindings": [],
+  "known_gaps": [
+    "profile views"
+  ],
+  "publication": {
+    "manifest": "public",
+    "assets": "private_only",
+    "notes": "URLs are synthetic and intentionally invalid."
+  }
+}

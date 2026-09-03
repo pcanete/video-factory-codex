@@ -1,0 +1,4 @@
+interface:
+  display_name: "Character Pack Builder"
+  short_description: "Versiona identidad visual portable para video"
+  default_prompt: "Usa $character-pack-builder para crear un pack privado y auditable desde estas referencias autorizadas."

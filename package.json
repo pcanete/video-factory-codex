@@ -8,7 +8,8 @@
   "scripts": {
     "test": "node --test",
     "validate": "node scripts/validate-project.mjs",
-    "check": "npm run test && npm run validate",
+    "validate:contracts": "node skills/character-pack-builder/scripts/validate.mjs skills/character-pack-builder/fixtures/character-pack.synthetic.json && node skills/shot-plan-builder/scripts/validate.mjs skills/shot-plan-builder/fixtures/shot-plan.synthetic.json skills/character-pack-builder/fixtures/character-pack.synthetic.json",
+    "check": "npm run test && npm run validate && npm run validate:contracts",
     "scan": "node skills/video-reference-scanner/scripts/scan.mjs"
   },
   "license": "MIT"

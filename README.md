@@ -6,7 +6,13 @@ Este repositorio no comparte working tree con la version de Claude. Cada impleme
 
 ## Estado
 
-Version inicial `0.1.0`. La primera skill es `video-reference-scanner`, preparada para pruebas con videos reales.
+Tres capacidades construidas y verificadas:
+
+- `video-reference-scanner`: referencia -> evidencia y gramatica audiovisual.
+- `character-pack-builder`: referencias autorizadas -> identidad portable y versionada.
+- `shot-plan-builder`: concepto + gramatica + character pack -> contrato neutral de planos.
+
+La primera prueba privada usa un personaje sintetico propiedad del usuario. Sus imagenes, manifiestos y planes reales no forman parte del repositorio.
 
 ## Principios
 
@@ -20,10 +26,10 @@ Version inicial `0.1.0`. La primera skill es `video-reference-scanner`, preparad
 
 ```text
 skills/
-  video-reference-scanner/  # referencia -> evidencia + gramatica
-  character-pack-builder/   # proxima: identidad versionada y permisos
+  video-reference-scanner/  # construida: referencia -> evidencia + gramatica
+  character-pack-builder/   # construida: identidad versionada y permisos
+  shot-plan-builder/        # construida: tratamiento -> contrato de planos
   video-creative-director/  # proxima: brief -> tratamiento
-  shot-plan-builder/        # proxima: tratamiento -> contrato de planos
   video-vendor-compiler/    # proxima: contrato -> paquete por vendor
   continuity-qa/            # proxima: clips -> control de deriva
 ```
@@ -43,6 +49,7 @@ Los binarios pueden estar en `PATH`, pasarse con `--ffmpeg`/`--ffprobe` o defini
 ```powershell
 npm test
 npm run validate
+npm run validate:contracts
 node skills/video-reference-scanner/scripts/scan.mjs "C:\ruta\video.mp4" --out ".\results"
 ```
 

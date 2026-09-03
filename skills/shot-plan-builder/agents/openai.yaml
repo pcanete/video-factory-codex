@@ -1,0 +1,4 @@
+interface:
+  display_name: "Shot Plan Builder"
+  short_description: "Convierte una idea en planos generativos neutrales"
+  default_prompt: "Usa $shot-plan-builder para convertir este concepto y character pack en un plan neutral de planos."
