@@ -1,0 +1,4 @@
+interface:
+  display_name: "Keyframe Test Builder"
+  short_description: "Valida identidad antes de animar video"
+  default_prompt: "Usa $keyframe-test-builder para preparar y evaluar un keyframe antes de animarlo."

@@ -8,7 +8,7 @@
   "scripts": {
     "test": "node --test",
     "validate": "node scripts/validate-project.mjs",
-    "validate:contracts": "node skills/character-pack-builder/scripts/validate.mjs skills/character-pack-builder/fixtures/character-pack.synthetic.json && node skills/shot-plan-builder/scripts/validate.mjs skills/shot-plan-builder/fixtures/shot-plan.synthetic.json skills/character-pack-builder/fixtures/character-pack.synthetic.json",
+    "validate:contracts": "node skills/character-pack-builder/scripts/validate.mjs skills/character-pack-builder/fixtures/character-pack.synthetic.json && node skills/shot-plan-builder/scripts/validate.mjs skills/shot-plan-builder/fixtures/shot-plan.synthetic.json skills/character-pack-builder/fixtures/character-pack.synthetic.json && node skills/keyframe-test-builder/scripts/validate.mjs skills/keyframe-test-builder/fixtures/keyframe-test.synthetic.json skills/shot-plan-builder/fixtures/shot-plan.synthetic.json skills/character-pack-builder/fixtures/character-pack.synthetic.json",
     "check": "npm run test && npm run validate && npm run validate:contracts",
     "scan": "node skills/video-reference-scanner/scripts/scan.mjs"
   },

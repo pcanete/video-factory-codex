@@ -1,0 +1,33 @@
+{
+  "contract": "KEYFRAME_TEST",
+  "version": "0.1.0",
+  "test_id": "sample-keyframe-01",
+  "shot_plan_ref": "sample-piece",
+  "shot_index": 1,
+  "character_pack_refs": ["sample-character"],
+  "reference_ids": ["front-neutral"],
+  "hypothesis": {
+    "question": "Can the identity remain stable in a simple seated portrait?",
+    "variables_held_constant": ["identity", "wardrobe", "hair", "lighting"]
+  },
+  "generation": {
+    "provider": "synthetic-fixture",
+    "model": "not_recorded",
+    "prompt": "Create a fictional adult character seated in a quiet room.",
+    "negative_prompt": "different identity, altered wardrobe",
+    "aspect_ratio": "9:16",
+    "candidate_path": "https://example.invalid/candidate.png"
+  },
+  "evaluation": [
+    {
+      "dimension": "identity_face",
+      "status": "review",
+      "note": "Requires human comparison with the canonical reference."
+    }
+  ],
+  "gate": {
+    "candidate_status": "candidate",
+    "human_decision": "pending",
+    "next_action": "Request human review before animation."
+  }
+}

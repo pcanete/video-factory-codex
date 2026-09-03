@@ -6,11 +6,12 @@ Este repositorio no comparte working tree con la version de Claude. Cada impleme
 
 ## Estado
 
-Tres capacidades construidas y verificadas:
+Cuatro capacidades construidas y verificadas:
 
 - `video-reference-scanner`: referencia -> evidencia y gramatica audiovisual.
 - `character-pack-builder`: referencias autorizadas -> identidad portable y versionada.
 - `shot-plan-builder`: concepto + gramatica + character pack -> contrato neutral de planos.
+- `keyframe-test-builder`: plano + identidad -> candidato estatico con puerta humana antes de animar.
 
 La primera prueba privada usa un personaje sintetico propiedad del usuario. Sus imagenes, manifiestos y planes reales no forman parte del repositorio.
 
@@ -29,6 +30,7 @@ skills/
   video-reference-scanner/  # construida: referencia -> evidencia + gramatica
   character-pack-builder/   # construida: identidad versionada y permisos
   shot-plan-builder/        # construida: tratamiento -> contrato de planos
+  keyframe-test-builder/    # construida: validar un frame antes de animar
   video-creative-director/  # proxima: brief -> tratamiento
   video-vendor-compiler/    # proxima: contrato -> paquete por vendor
   continuity-qa/            # proxima: clips -> control de deriva
