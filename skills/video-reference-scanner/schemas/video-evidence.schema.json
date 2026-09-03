@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://video-factory.local/schemas/video-evidence.schema.json",
+  "title": "VIDEO_EVIDENCE",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "version", "run_id", "generated_at", "source", "runtime", "technical", "parameters", "rhythm", "shots", "diagnostic", "pending_interpretation"],
+  "properties": {
+    "contract": { "const": "VIDEO_EVIDENCE" },
+    "version": { "const": "0.1.0" },
+    "run_id": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file_name", "sha256"],
+      "properties": {
+        "file_name": { "type": "string", "minLength": 1 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "runtime": { "type": "object" },
+    "technical": { "type": "object" },
+    "parameters": { "type": "object" },
+    "rhythm": { "type": "object" },
+    "audio": { "type": ["object", "null"] },
+    "shots": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["index", "start_s", "end_s", "duration_s", "frame"],
+        "properties": {
+          "index": { "type": "integer", "minimum": 1 },
+          "start_s": { "type": "number", "minimum": 0 },
+          "end_s": { "type": "number", "exclusiveMinimum": 0 },
+          "duration_s": { "type": "number", "exclusiveMinimum": 0 },
+          "frame": { "type": "string" },
+          "motion_strip": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "diagnostic": { "type": "object" },
+    "pending_interpretation": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://video-factory.local/schemas/shot-template.schema.json",
+  "title": "SHOT_TEMPLATE",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "version", "derived_from_run", "duration_target_s", "orientation", "shots"],
+  "properties": {
+    "contract": { "const": "SHOT_TEMPLATE" },
+    "version": { "const": "0.1.0" },
+    "derived_from_run": { "type": "string", "minLength": 1 },
+    "duration_target_s": { "type": "number", "exclusiveMinimum": 0 },
+    "orientation": { "enum": ["horizontal", "vertical", "square"] },
+    "shots": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["index", "narrative_function", "duration_s", "framing", "camera", "light", "transition_out"],
+        "properties": {
+          "index": { "type": "integer", "minimum": 1 },
+          "narrative_function": { "type": "string", "minLength": 1 },
+          "duration_s": { "type": "number", "exclusiveMinimum": 0 },
+          "framing": { "type": "string", "minLength": 1 },
+          "camera": { "type": "string", "minLength": 1 },
+          "light": { "type": "string", "minLength": 1 },
+          "audio_role": { "type": "string" },
+          "transition_out": { "type": "string", "minLength": 1 },
+          "production_note": { "type": "string" }
+        }
+      }
+    }
+  }
+}

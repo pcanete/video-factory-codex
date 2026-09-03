@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://video-factory.local/schemas/video-dna.schema.json",
+  "title": "VIDEO_DNA",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "version", "derived_from_run", "rules", "replicability", "not_determined"],
+  "properties": {
+    "contract": { "const": "VIDEO_DNA" },
+    "version": { "const": "0.1.0" },
+    "derived_from_run": { "type": "string", "minLength": 1 },
+    "rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rhythm", "framing", "camera", "light_color", "transitions", "audio", "narrative_structure"],
+      "properties": {
+        "rhythm": { "$ref": "#/$defs/rule" },
+        "framing": { "$ref": "#/$defs/rule" },
+        "camera": { "$ref": "#/$defs/rule" },
+        "light_color": { "$ref": "#/$defs/rule" },
+        "transitions": { "$ref": "#/$defs/rule" },
+        "audio": { "$ref": "#/$defs/rule" },
+        "narrative_structure": { "$ref": "#/$defs/rule" }
+      }
+    },
+    "replicability": { "type": "array", "items": { "$ref": "#/$defs/replicability" } },
+    "not_determined": { "type": "array", "items": { "type": "string" } }
+  },
+  "$defs": {
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["instruction", "evidence_shots", "knowledge_state", "confidence"],
+      "properties": {
+        "instruction": { "type": "string", "minLength": 1 },
+        "evidence_shots": { "type": "array", "items": { "type": "integer", "minimum": 1 } },
+        "knowledge_state": { "enum": ["medido", "observado", "inferido", "no_determinado"] },
+        "confidence": { "enum": ["alta", "media", "baja"] },
+        "exceptions": { "type": "string" }
+      }
+    },
+    "replicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shot", "level", "risk", "fallback"],
+      "properties": {
+        "shot": { "type": "integer", "minimum": 1 },
+        "level": { "enum": ["produccion_segura", "requiere_prueba", "resolver_fuera_del_generador"] },
+        "target_model": { "type": "string" },
+        "control_mechanism": { "type": "string" },
+        "risk": { "type": "string" },
+        "max_attempts": { "type": "integer", "minimum": 1 },
+        "fallback": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

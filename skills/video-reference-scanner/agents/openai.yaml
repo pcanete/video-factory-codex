@@ -1,0 +1,4 @@
+interface:
+  display_name: "Video Reference Scanner"
+  short_description: "Analiza referencias audiovisuales con evidencia"
+  default_prompt: "Usa $video-reference-scanner para analizar este video y extraer una gramatica audiovisual reutilizable."

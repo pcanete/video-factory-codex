@@ -1,0 +1,16 @@
+node_modules/
+results/
+tmp/
+*.log
+.DS_Store
+Thumbs.db
+
+# Nunca versionar referencias o activos de identidad reales.
+private-assets/
+character-packs/
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.wav
+*.mp3
