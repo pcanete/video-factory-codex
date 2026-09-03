@@ -20,7 +20,7 @@ Convierte una referencia audiovisual en evidencia verificable y decisiones de di
 
 1. Confirmar que la fuente puede analizarse y que el uso pedido es de estudio o transformacion de gramatica.
 2. Ejecutar `scripts/scan.mjs` con una ruta local. Para opciones, usar `--help`.
-3. Revisar `diagnostico` antes de aceptar el corte automatico de planos.
+3. Revisar `diagnostico` antes de aceptar el corte automatico de planos. Si aparece un solo plano largo, no asumir toma continua: usar `threshold_candidates` para generar corridas conservadora, equilibrada y sensible, y comparar sus hojas de contacto.
 4. Abrir primero `contact.png`, luego las tiras `motion-*.png` y finalmente los frames individuales necesarios.
 5. Leer [references/interpretation-guide.md](references/interpretation-guide.md) para sintetizar ritmo, encuadre, camara, luz/color, transiciones, audio y estructura.
 6. Escribir en el directorio del escaneo:
@@ -59,5 +59,6 @@ Si no se conoce el modelo destino, el veredicto es preliminar.
 
 - Entrada por URL todavia no esta implementada; descargar la referencia por un medio autorizado y analizar el archivo local.
 - El detector de escenas propone cortes, no sustituye la revision visual.
+- Las disolvencias, morphs y transiciones fluidas pueden requerir una segunda pasada con los umbrales adaptativos del diagnostico.
 - La transcripcion no forma parte del motor v0.1.
 - Movimiento de camara se conserva como tarea interpretativa; las tiras temporales son evidencia, no una clasificacion automatica definitiva.

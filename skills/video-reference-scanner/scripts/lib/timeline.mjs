@@ -33,9 +33,32 @@ export function buildShots(cuts, duration, minShot = 0.5) {
   return { shots, grouped };
 }
 
-export function suggestThreshold(scores, duration) {
-  if (!scores.length || !(duration > 0)) return null;
-  const desiredCuts = Math.max(1, Math.round(duration / 4) - 1);
-  const sorted = [...scores].sort((a, b) => b.score - a.score);
-  return round(sorted[Math.min(desiredCuts - 1, sorted.length - 1)].score, 4);
+export function suggestThreshold(scores, duration, minShot = 0.5, targetShotSeconds = 4) {
+  if (!scores.length || !(duration > 0) || !(targetShotSeconds > 0)) return null;
+  const candidates = [...new Set(scores.map((item) => item.score).filter((score) => Number.isFinite(score) && score > 0))]
+    .sort((a, b) => b - a);
+  if (!candidates.length) return null;
+
+  const desiredShots = Math.max(2, Math.round(duration / targetShotSeconds));
+  let best = null;
+  for (const threshold of candidates) {
+    const cuts = scores.filter((item) => item.score >= threshold).map((item) => item.time_s);
+    const shotCount = buildShots(cuts, duration, minShot).shots.length;
+    const distance = Math.abs(shotCount - desiredShots);
+    if (!best || distance < best.distance || (distance === best.distance && threshold > best.threshold)) {
+      best = { threshold, distance };
+    }
+  }
+  return round(best.threshold, 4);
+}
+
+export function suggestThresholdCandidates(scores, duration, minShot = 0.5) {
+  return [
+    { mode: "conservative", target_shot_s: 4 },
+    { mode: "balanced", target_shot_s: 2.5 },
+    { mode: "sensitive", target_shot_s: 1.5 },
+  ].map((candidate) => ({
+    ...candidate,
+    threshold: suggestThreshold(scores, duration, minShot, candidate.target_shot_s),
+  }));
 }

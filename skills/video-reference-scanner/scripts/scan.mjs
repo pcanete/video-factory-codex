@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import { createReadStream, existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
 import { findBinary, run, siblingBinary } from "./lib/runtime.mjs";
-import { buildShots, suggestThreshold } from "./lib/timeline.mjs";
+import { buildShots, suggestThresholdCandidates } from "./lib/timeline.mjs";
 
 const VERSION = "0.1.0";
 const round = (value, digits = 3) => Number(value.toFixed(digits));
@@ -205,7 +205,10 @@ for (const shot of shots) {
 
 const contactPath = join(output, "contact.png");
 const contactCreated = makeContact(ffmpeg, framesDir, shots.length, contactPath);
-const thresholdSuggestion = shots.length === 1 && technical.duration_s > 12 ? suggestThreshold(scores, technical.duration_s) : null;
+const thresholdCandidates = shots.length === 1 && technical.duration_s > 12
+  ? suggestThresholdCandidates(scores, technical.duration_s, args.minShot)
+  : [];
+const thresholdSuggestion = thresholdCandidates.find((candidate) => candidate.mode === "balanced")?.threshold ?? null;
 const evidence = {
   contract: "VIDEO_EVIDENCE",
   version: VERSION,
@@ -223,9 +226,10 @@ const evidence = {
     grouped_detections: grouped,
     strongest_scene_scores: [...scores].sort((a, b) => b.score - a.score).slice(0, 40),
     threshold_suggestion: thresholdSuggestion,
+    threshold_candidates: thresholdCandidates,
     warnings: [
       probeWarning,
-      thresholdSuggestion === null ? null : "Se detecto un solo plano largo; revisar visualmente y considerar otra corrida con el umbral sugerido."
+      thresholdSuggestion === null ? null : "Se detecto un solo plano largo. No asumir toma continua: comparar corridas conservadora, equilibrada y sensible antes de interpretar."
     ].filter(Boolean),
     contact_sheet: contactCreated ? "contact.png" : null,
   },
