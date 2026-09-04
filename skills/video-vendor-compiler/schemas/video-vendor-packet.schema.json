@@ -17,6 +17,7 @@
         "shot_index": { "type": "integer", "minimum": 1 },
         "approved_keyframe": { "type": "string", "minLength": 1 },
         "keyframe_status": { "const": "approved" },
+        "frame_role": { "const": "start", "default": "start" },
         "approval_date": { "type": "string", "minLength": 1 }
       }
     },

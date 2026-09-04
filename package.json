@@ -4,13 +4,16 @@
   "private": true,
   "description": "Vendor-neutral contracts and skills for generative-video preproduction.",
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "test": "node --test",
     "validate": "node scripts/validate-project.mjs",
     "validate:contracts": "node skills/character-pack-builder/scripts/validate.mjs skills/character-pack-builder/fixtures/character-pack.synthetic.json && node skills/sequence-continuity-builder/scripts/validate.mjs skills/sequence-continuity-builder/fixtures/sequence-continuity.synthetic.json && node skills/shot-plan-builder/scripts/validate.mjs skills/shot-plan-builder/fixtures/shot-plan.synthetic.json skills/character-pack-builder/fixtures/character-pack.synthetic.json && node skills/keyframe-test-builder/scripts/validate.mjs skills/keyframe-test-builder/fixtures/keyframe-test.synthetic.json skills/shot-plan-builder/fixtures/shot-plan.synthetic.json skills/character-pack-builder/fixtures/character-pack.synthetic.json && node skills/higgsfield-router/scripts/route.mjs --request skills/higgsfield-router/fixtures/higgsfield-routing-request.synthetic.json --out tmp/higgsfield-route.synthetic.json && node skills/video-vendor-compiler/scripts/compile-higgsfield.mjs --packet skills/video-vendor-compiler/fixtures/video-vendor-packet.synthetic.json --out tmp/higgsfield-job.synthetic.json",
-    "check": "npm run test && npm run validate && npm run validate:contracts",
-    "scan": "node skills/video-reference-scanner/scripts/scan.mjs"
+    "check": "npm run test && npm run validate && npm run validate:contracts && npm run validate:consistency",
+    "scan": "node skills/video-reference-scanner/scripts/scan.mjs",
+    "validate:consistency": "node skills/product-pack-builder/scripts/validate.mjs skills/product-pack-builder/fixtures/product-pack.synthetic.json && node skills/consistency-test-builder/scripts/validate.mjs skills/consistency-test-builder/fixtures/consistency-test.synthetic.json"
   },
   "license": "MIT"
 }

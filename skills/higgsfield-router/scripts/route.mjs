@@ -92,15 +92,15 @@ const ROUTES = {
 };
 
 function hasIdentity(inputs) {
-  return Boolean(inputs.character_pack_ref || inputs.avatar_ids?.length || inputs.reference_images?.length);
+  return Boolean(inputs.character_pack_ref || inputs.product_pack_ref || inputs.avatar_ids?.length || inputs.reference_images?.length);
 }
 
 function hasMarketingSubject(inputs) {
-  return Boolean(inputs.product_ids?.length || inputs.avatar_ids?.length || inputs.reference_images?.length || inputs.character_pack_ref);
+  return Boolean(inputs.product_pack_ref || inputs.product_ids?.length || inputs.avatar_ids?.length || inputs.reference_images?.length || inputs.character_pack_ref);
 }
 
 function hasVisualReference(inputs) {
-  return Boolean(inputs.approved_keyframe || inputs.reference_images?.length || inputs.character_pack_ref);
+  return Boolean(inputs.product_pack_ref || inputs.approved_keyframe || inputs.reference_images?.length || inputs.character_pack_ref);
 }
 
 export function validateRoutingRequest(request) {
@@ -131,7 +131,7 @@ function artifactBindings(inputs) {
     shots: inputs.shot_plan_ref ?? inputs.storyboard_id ?? null,
     composition: inputs.approved_keyframe ?? null,
     source_video: inputs.reference_video ?? null,
-    products: inputs.product_ids ?? null
+    products: inputs.product_pack_ref ?? inputs.product_ids ?? null
   };
 }
 
@@ -140,6 +140,7 @@ function webHandoff(route, request) {
   const inputs = request.inputs;
   if (inputs.reference_video) uploads.push({ role: "source_video", ref: inputs.reference_video });
   if (inputs.character_pack_ref) uploads.push({ role: "character_identity", ref: inputs.character_pack_ref });
+  if (inputs.product_pack_ref) uploads.push({ role: "product_identity", ref: inputs.product_pack_ref });
   for (const ref of inputs.reference_images ?? []) uploads.push({ role: "visual_reference", ref });
   if (inputs.approved_keyframe) uploads.push({ role: "approved_composition", ref: inputs.approved_keyframe });
   if (inputs.replacement_ref) uploads.push({ role: "replacement", ref: inputs.replacement_ref });

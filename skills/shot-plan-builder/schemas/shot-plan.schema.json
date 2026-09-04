@@ -81,7 +81,7 @@
     },
     "character_pack_refs": {
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "items": {
         "type": "string",
         "minLength": 1
@@ -111,6 +111,14 @@
           "clip_approval",
           "final_assembly_approval"
         ]
+      }
+    },
+    "product_pack_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
       }
     }
   },
@@ -179,7 +187,7 @@
         },
         "identity_refs": {
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "items": {
             "type": "string",
             "minLength": 1
@@ -211,8 +219,60 @@
             "moderate",
             "stretch"
           ]
+        },
+        "product_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         }
-      }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "identity_refs": {
+              "minItems": 1
+            }
+          },
+          "required": [
+            "identity_refs"
+          ]
+        },
+        {
+          "properties": {
+            "product_refs": {
+              "minItems": 1
+            }
+          },
+          "required": [
+            "product_refs"
+          ]
+        }
+      ]
     }
-  }
+  },
+  "anyOf": [
+    {
+      "properties": {
+        "character_pack_refs": {
+          "minItems": 1
+        }
+      },
+      "required": [
+        "character_pack_refs"
+      ]
+    },
+    {
+      "properties": {
+        "product_pack_refs": {
+          "minItems": 1
+        }
+      },
+      "required": [
+        "product_pack_refs"
+      ]
+    }
+  ]
 }

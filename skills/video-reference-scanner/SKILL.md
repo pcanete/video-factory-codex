@@ -1,11 +1,11 @@
 ---
 name: video-reference-scanner
-description: Analiza un video de referencia y extrae evidencia temporal, visual y sonora para convertirla en una gramatica audiovisual reutilizable. Usar cuando el usuario aporte un video y quiera entender como esta construido, describir que le gusta o preparar una pieza inspirada en su logica; no usar para copiar contenido, marcas o planos de terceros ni para editar el video fuente.
+description: Analiza un video de referencia y extrae evidencia temporal, visual y sonora para entender su construcción, preparar una pieza inspirada o planificar una transformación autorizada de personajes u objetos. No edita ni genera el video fuente y no presupone derechos de reutilización.
 ---
 
 # Video Reference Scanner
 
-Convierte una referencia audiovisual en evidencia verificable y decisiones de direccion. El objetivo es aprender su gramatica sin copiar su contenido.
+Convierte una referencia audiovisual en evidencia verificable y decisiones de direccion. Distinguir estudio de gramática de transformación autorizada del material; analizar no autoriza reutilizar.
 
 ## Invariantes
 
@@ -18,17 +18,18 @@ Convierte una referencia audiovisual en evidencia verificable y decisiones de di
 
 ## Flujo
 
-1. Confirmar que la fuente puede analizarse y que el uso pedido es de estudio o transformacion de gramatica.
+1. Confirmar acceso a la fuente y registrar si el pedido es estudio, inspiración o transformación del video existente. Los permisos de transformación/subida se resuelven antes de esas acciones, sin impedir el análisis solicitado.
 2. Ejecutar `scripts/scan.mjs` con una ruta local. Para opciones, usar `--help`.
 3. Revisar `diagnostico` antes de aceptar el corte automatico de planos. Si aparece un solo plano largo, no asumir toma continua: usar `threshold_candidates` para generar corridas conservadora, equilibrada y sensible, y comparar sus hojas de contacto.
 4. Para referencias con acciones encadenadas, objetos que cambian de estado, planos secuencia, morphs o transiciones internas, repetir con `--dense`. Esto extrae nueve muestras por plano para distinguir subacciones sin inventar cortes.
 5. Abrir primero `contact.png`, luego las tiras `motion-*.png` y finalmente los frames individuales necesarios. Las posiciones temporales son mediciones; el sentido de cada fase sigue siendo interpretación.
 6. Leer [references/interpretation-guide.md](references/interpretation-guide.md) para sintetizar ritmo, encuadre, camara, luz/color, transiciones, audio y estructura.
-7. Escribir en el directorio del escaneo:
+7. En análisis profundo o transformaciones fieles, leer [references/deep-scan.md](references/deep-scan.md), ampliar evidencia donde haya incertidumbre y registrar `SCAN_COVERAGE.md`. No atribuir al modo dense una cobertura temporal o auditiva que no se verificó.
+8. Escribir en el directorio del escaneo:
    - `VIDEO_DNA.json`: reglas reutilizables con evidencia y confianza.
    - `VIDEO_REPORT.md`: explicacion humana, limitaciones y vocabulario anclado a planos.
    - `SHOT_TEMPLATE.json`: funciones narrativas y parametros vaciados del contenido original.
-8. Validar los JSON contra los schemas en `schemas/`.
+9. Validar los JSON contra los schemas en `schemas/`. Entregar a [video-creative-director](../video-creative-director/SKILL.md) solo si el usuario pidió continuar hacia planificación/producción.
 
 ## Ejecucion
 

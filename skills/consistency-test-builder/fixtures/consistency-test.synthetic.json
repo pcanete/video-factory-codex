@@ -1,0 +1,61 @@
+{
+  "contract": "CONSISTENCY_TEST",
+  "version": "0.1.0",
+  "test_id": "flask-label-and-turn",
+  "context": {
+    "entity_revisions": {
+      "sample-flask": "r1"
+    },
+    "provider": "synthetic-only",
+    "model": "synthetic-model",
+    "channel": "offline-fixture",
+    "recipe_revision": "r1",
+    "scope_revision": "front-and-turn-r1"
+  },
+  "status": "planned",
+  "limitations": [
+    "Synthetic plan; no media generated or visually assessed."
+  ],
+  "cases": [
+    {
+      "id": "front",
+      "entity_ids": [
+        "sample-flask"
+      ],
+      "condition": "Front label at the required delivery scale",
+      "media_kind": "image",
+      "temporal_review": "not_applicable",
+      "checks": [
+        {
+          "dimension": "product:label",
+          "critical": true,
+          "status": "review",
+          "note": "Compare exact artwork, letters and placement."
+        }
+      ]
+    },
+    {
+      "id": "turn",
+      "entity_ids": [
+        "sample-flask"
+      ],
+      "condition": "Closed flask turns to the angle required by the shot",
+      "media_kind": "video",
+      "temporal_review": "not_reviewed",
+      "checks": [
+        {
+          "dimension": "product:shape",
+          "critical": true,
+          "status": "review",
+          "note": "Body, cap and proportions must survive the turn."
+        },
+        {
+          "dimension": "motion",
+          "critical": true,
+          "status": "review",
+          "note": "Review full action and occlusions."
+        }
+      ]
+    }
+  ]
+}

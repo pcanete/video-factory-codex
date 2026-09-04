@@ -41,3 +41,13 @@ test("rechaza una autorización cuyo costo supera el máximo", async () => {
   };
   assert.match(validateVendorPacket(packet).join("\n"), /supera max_credits/);
 });
+
+test("un ancla final no se compila silenciosamente como start-image", async () => {
+  const packet = await fixture();
+  packet.source.frame_role = "end";
+  assert.throws(() => compileHiggsfield(packet), /frame_role start/);
+  packet.source.frame_role = "start";
+  const job = compileHiggsfield(packet);
+  assert.ok(job.cost_args.includes("--start-image"));
+  assert.equal(job.create_args, null);
+});

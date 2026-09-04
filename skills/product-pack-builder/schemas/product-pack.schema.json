@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PRODUCT_PACK",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract",
+    "version",
+    "product_id",
+    "revision",
+    "display_name",
+    "variant",
+    "ownership",
+    "states",
+    "references",
+    "locks",
+    "known_gaps",
+    "approval",
+    "publication"
+  ],
+  "properties": {
+    "contract": {
+      "const": "PRODUCT_PACK"
+    },
+    "version": {
+      "const": "0.1.0"
+    },
+    "product_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "variant": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ownership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "evidence_note"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "user_owned",
+            "licensed",
+            "pending",
+            "unknown"
+          ]
+        },
+        "evidence_note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "states": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "references": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "path",
+          "role",
+          "state",
+          "origin",
+          "canonical"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1
+          },
+          "state": {
+            "type": "string",
+            "minLength": 1
+          },
+          "origin": {
+            "enum": [
+              "supplied",
+              "generated"
+            ]
+          },
+          "canonical": {
+            "type": "boolean"
+          },
+          "promotion_approval": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "locks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "dimension",
+          "requirement",
+          "fidelity",
+          "reference_ids"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "dimension": {
+            "enum": [
+              "geometry",
+              "color",
+              "material",
+              "brand",
+              "text",
+              "mechanism"
+            ]
+          },
+          "requirement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fidelity": {
+            "enum": [
+              "exact",
+              "perceptual"
+            ]
+          },
+          "reference_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "known_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "draft",
+            "approved"
+          ]
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest",
+        "assets"
+      ],
+      "properties": {
+        "manifest": {
+          "const": "private"
+        },
+        "assets": {
+          "const": "private_only"
+        }
+      }
+    }
+  }
+}

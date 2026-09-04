@@ -31,6 +31,9 @@ node scripts/validate.mjs "C:\ruta\CHARACTER_PACK.json"
 ```
 
 7. Pedir aprobación humana antes de usar el pack para generar keyframes o registrar un binding externo.
+8. Para producción recurrente o ángulos/acciones de riesgo, usar [consistency-test-builder](../consistency-test-builder/SKILL.md). Identificar la revisión de contenido por hash del manifiesto y referencias si no existe campo de revisión; version 0.1.0 es el formato, no una revisión de identidad.
+
+Un último frame generado ayuda a la composición, no reemplaza las referencias canónicas. Mantener identidad permanente separada del look/vestuario aprobado para la pieza. No exigir LoRA o entrenamiento si las referencias bastan; verificar compatibilidad y autorización si se proponen.
 
 ## Resultado
 

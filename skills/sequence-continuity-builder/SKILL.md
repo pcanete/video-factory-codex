@@ -21,6 +21,7 @@ Construye una fuente de verdad narrativa entre la referencia y los planos. Su un
 
 1. Leer el guion y, cuando exista una referencia compleja, su `VIDEO_EVIDENCE.json`. Si contiene planos largos, acciones encadenadas u objetos que mutan, exigir una corrida `--dense` del `video-reference-scanner`.
 2. Inventariar entidades. Para cada una declarar anclas, invariantes y atributos mutables. Un objeto narrativo debe describirse con el mismo rigor que un personaje.
+   Para producto/prop, resolver su PRODUCT_PACK y variante con product-pack-builder; copiar sus locks y estados relevantes por ID/revisión, no inventar geometría ni texto desde el prompt.
 3. Dividir la secuencia en beats por cambio de intención o estado, aunque varios beats puedan vivir dentro de un mismo plano.
 4. Para cada beat registrar estado anterior, acciones ordenadas, estado posterior, evidencia y comprobaciones observables.
 5. Leer [references/state-model.md](references/state-model.md) cuando haya interacciones, continuidad deliberadamente rota o varios objetos parecidos.

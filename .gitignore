@@ -8,6 +8,8 @@ Thumbs.db
 # Nunca versionar referencias o activos de identidad reales.
 private-assets/
 character-packs/
+product-packs/
+consistency-tests/
 *.mp4
 *.mov
 *.mkv

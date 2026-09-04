@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CONSISTENCY_TEST",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract",
+    "version",
+    "test_id",
+    "context",
+    "status",
+    "limitations",
+    "cases"
+  ],
+  "properties": {
+    "contract": {
+      "const": "CONSISTENCY_TEST"
+    },
+    "version": {
+      "const": "0.1.0"
+    },
+    "test_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entity_revisions",
+        "provider",
+        "model",
+        "channel",
+        "recipe_revision",
+        "scope_revision"
+      ],
+      "properties": {
+        "entity_revisions": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "channel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recipe_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope_revision": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "candidate",
+        "approved",
+        "rejected"
+      ]
+    },
+    "approval_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "entity_ids",
+          "condition",
+          "media_kind",
+          "temporal_review",
+          "checks"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "entity_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "condition": {
+            "type": "string",
+            "minLength": 1
+          },
+          "media_kind": {
+            "enum": [
+              "image",
+              "video"
+            ]
+          },
+          "output_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "temporal_review": {
+            "enum": [
+              "not_applicable",
+              "not_reviewed",
+              "sampled",
+              "full"
+            ]
+          },
+          "checks": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "dimension",
+                "critical",
+                "status",
+                "note"
+              ],
+              "properties": {
+                "dimension": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "critical": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "enum": [
+                    "pass",
+                    "fail",
+                    "review",
+                    "not_applicable"
+                  ]
+                },
+                "evidence_ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "note": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

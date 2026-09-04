@@ -9,7 +9,11 @@
 - **Cinema Studio 4.0**: dirección cinematográfica con referencias, extensión, edición, controles de cámara/lente/luz y Elements reutilizables para personajes, locaciones y props.
 - **Viral Presets**: recetas visuales como Earth Zoom, Bullet Time u Orbit 360. El nombre del preset es una decisión creativa de interfaz, no un contrato estable de modelo.
 
-En el catálogo CLI consultado no existían los `job_type` `genjutsu`, `cinema_studio` ni `viral_presets`. Preparar un handoff web para esos nombres y no afirmar que un modelo directo es equivalente.
+En el catálogo CLI consultado no existían los `job_type` `genjutsu`, `cinema_studio` ni `viral_presets`. Esto no demuestra ausencia en MCP. El router automatizado mantiene fallback web para esos nombres y no afirma que un modelo directo sea equivalente.
+
+### Evidencia adicional MCP de la prueba completa
+
+El 2026-09-04 se generaron planos con `cinematic_studio_3_0` mediante MCP y se ensamblaron en un MP4 mediante el workflow de edición remoto. No prueba paridad con Cinema 4.0 web ni que Genjutsu esté conectado. Consultar el catálogo MCP actual antes de elegir modelo y canal; conservar esa decisión fuera del resultado base del script hasta que exista adaptador MCP validado.
 
 ### Capacidades presentes en CLI
 
@@ -36,7 +40,7 @@ La disponibilidad y los argumentos pueden cambiar. Antes de generar, ejecutar `h
 
 ## Límites de canal
 
-- CLI y automatizaciones consumen créditos normales aunque la web pueda ofrecer opciones gratuitas o ilimitadas según el plan.
+- No inferir el costo de un canal por la oferta de otro. Verificar precio y modalidad de cobro en el canal/modelo/configuración concretos; una modalidad ilimitada o prueba necesita elección explícita del usuario, sin iniciar suscripciones por defecto.
 - Una ruta web puede ser la opción correcta por control o costo. El handoff debe indicar exactamente qué subir, qué papel cumple cada activo y qué verificar.
 - Los nombres comerciales de Studios no deben guardarse como fuente de verdad. Conservar intención y restricciones en contratos neutrales.
 

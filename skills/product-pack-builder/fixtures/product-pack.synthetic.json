@@ -1,0 +1,64 @@
+{
+  "contract": "PRODUCT_PACK",
+  "version": "0.1.0",
+  "product_id": "sample-flask",
+  "revision": 1,
+  "display_name": "Fictional sample flask",
+  "variant": "blue-500",
+  "ownership": {
+    "status": "user_owned",
+    "evidence_note": "Synthetic test fixture only; no actual asset or rights claimed."
+  },
+  "states": [
+    "closed",
+    "open"
+  ],
+  "references": [
+    {
+      "id": "flask-front",
+      "path": "https://example.invalid/flask-front.png",
+      "role": "shape and front label",
+      "state": "closed",
+      "origin": "supplied",
+      "canonical": true
+    },
+    {
+      "id": "flask-label",
+      "path": "https://example.invalid/label.svg",
+      "role": "label artwork",
+      "state": "closed",
+      "origin": "supplied",
+      "canonical": true
+    }
+  ],
+  "locks": [
+    {
+      "id": "shape",
+      "dimension": "geometry",
+      "requirement": "Cylindrical body and single screw cap",
+      "fidelity": "perceptual",
+      "reference_ids": [
+        "flask-front"
+      ]
+    },
+    {
+      "id": "label",
+      "dimension": "text",
+      "requirement": "Exact SAMPLE wordmark, placement and proportions",
+      "fidelity": "exact",
+      "reference_ids": [
+        "flask-label"
+      ]
+    }
+  ],
+  "known_gaps": [
+    "No open-cap reference; request only if the shot needs it."
+  ],
+  "approval": {
+    "status": "draft"
+  },
+  "publication": {
+    "manifest": "private",
+    "assets": "private_only"
+  }
+}

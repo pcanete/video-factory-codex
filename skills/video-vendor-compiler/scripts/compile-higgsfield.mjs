@@ -8,6 +8,7 @@ export function validateVendorPacket(packet) {
   if (packet?.vendor !== "Higgsfield") errors.push("este adaptador requiere vendor Higgsfield");
   if (packet?.source?.keyframe_status !== "approved") errors.push("el keyframe debe estar aprobado");
   if (!packet?.source?.approved_keyframe) errors.push("approved_keyframe es obligatorio");
+  if (packet?.source?.frame_role !== undefined && packet.source.frame_role !== "start") errors.push("este compilador solo acepta frame_role start; no usar un frame final como inicial");
   if (!packet?.settings?.job_type) errors.push("settings.job_type es obligatorio");
   if (!Number.isInteger(packet?.settings?.target_duration_s) || packet.settings.target_duration_s < 1) errors.push("target_duration_s debe ser entero positivo");
   if (!packet?.motion_prompt?.trim()) errors.push("motion_prompt es obligatorio");

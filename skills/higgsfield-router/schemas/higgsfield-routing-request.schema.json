@@ -20,6 +20,7 @@
         "reference_video": { "type": "string", "minLength": 1 },
         "reference_images": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
         "character_pack_ref": { "type": "string", "minLength": 1 },
+        "product_pack_ref": { "type": "string", "minLength": 1 },
         "sequence_continuity_ref": { "type": "string", "minLength": 1 },
         "shot_plan_ref": { "type": "string", "minLength": 1 },
         "approved_keyframe": { "type": "string", "minLength": 1 },

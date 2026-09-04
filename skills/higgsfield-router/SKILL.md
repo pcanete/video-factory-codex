@@ -11,7 +11,7 @@ Convierte una intención de producción en una decisión explícita de workflow,
 
 - Elegir el workflow por la transformación que debe preservarse, no por novedad o popularidad.
 - Mantener identidad, objetos, locaciones y estados en los contratos de Video Factory; los IDs del proveedor son enlaces descartables.
-- Distinguir una capacidad web de un `job_type` disponible en CLI. No inventar equivalencias.
+- Distinguir capacidades web, CLI y MCP. No inferir ausencia en un canal por una consulta a otro ni inventar equivalencias entre nombres/versiones.
 - Consultar el catálogo y schema vivos antes de compilar una ruta CLI.
 - El router nunca estima, autoriza ni ejecuta una generación. `create_args` permanece ausente hasta pasar por `video-vendor-compiler` y recibir autorización explícita.
 - Si falta un activo requerido, devolverlo como faltante; no sustituirlo silenciosamente.
@@ -29,6 +29,10 @@ node scripts/route.mjs --request "C:\ruta\HIGGSFIELD_ROUTING_REQUEST.json" --out
 4. Resolver `missing_inputs` antes de seguir.
 5. Para `execution.channel: cli`, verificar `model_get_args` y pasar la ruta al adaptador de `video-vendor-compiler`.
 6. Para `execution.channel: web`, preparar el handoff indicado: uploads ordenados, roles de las referencias, configuración y checks de QA. No pulsar **Generate** sin autorización.
+
+El script actual devuelve rutas base web/CLI, no descubre MCP. Si el usuario pide MCP, consultar su catálogo y conservar la verificación en el paquete técnico del director; no tratar el fallback web del script como prueba de que MCP no puede hacerlo. No cambiar de versión silenciosamente.
+
+product_pack_ref puede aportar la identidad visual de un producto en rutas cinematográficas, de transferencia o publicidad sin personaje. El binding products conserva ese pack. Los roles de handoff que apuntan a packs requieren resolver sus imágenes canónicas autorizadas: no subir el manifiesto privado como si fuera una imagen.
 
 ## Criterio de selección
 

@@ -18,14 +18,14 @@ Una regla de `VIDEO_DNA` debe declarar estado, confianza y planos que la sostien
 3. **Camara:** fija, desplazamiento, cambio de escala o movimiento interno. Las tiras ayudan, pero paneo y travelling requieren paralaje visible.
 4. **Luz y color:** describir relaciones entre planos. No inventar temperatura Kelvin, lente ni esquema de iluminacion fuera de cuadro.
 5. **Transiciones:** corte, disolvencia, fundido u otra lectura, declarando dudas.
-6. **Audio:** presencia, silencio, volumen y relacion temporal con cortes. Sin transcripcion, no afirmar contenido hablado.
+6. **Audio:** medir presencia de stream, nivel y silencio; distinguir estas mediciones de escucha, transcripción e interpretación musical. Sin escucha/transcripción verificadas no afirmar palabras; sin escucha no identificar instrumentos, efectos o emoción. La sincronía perceptual no se demuestra con una envolvente de volumen.
 7. **Estructura:** funcion de apertura, desarrollo, contraste y cierre. Siempre es interpretativa.
 
 ## De referencia a gramatica
 
 Conservar patrones repetidos o estructuralmente decisivos. Un rasgo aislado puede ser un acento, no una regla. No aplicar un umbral universal de frecuencia: una apertura o un cierre puede ocurrir una sola vez y seguir siendo parte esencial de la gramatica.
 
-Cada regla debe poder convertirse en una instruccion para una pieza nueva y debe excluir el contenido protegido de la referencia.
+En inspiración, cada regla debe poder convertirse en una instrucción para una pieza nueva sin reutilizar contenido distintivo no autorizado. En transformación autorizada, documentar además los elementos y tiempos que deben conservarse; mantener ese mapa separado de la gramática neutral.
 
 ## Veredicto de produccion
 
