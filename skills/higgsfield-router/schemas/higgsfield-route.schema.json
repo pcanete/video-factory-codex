@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://video-factory.local/schemas/higgsfield-route.schema.json",
+  "title": "HIGGSFIELD_ROUTE",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "version", "request_id", "workflow", "reason", "required_inputs", "missing_inputs", "artifact_bindings", "execution", "follow_up_routes", "authorization", "status"],
+  "properties": {
+    "contract": { "const": "HIGGSFIELD_ROUTE" },
+    "version": { "const": "0.1.0" },
+    "request_id": { "type": "string", "minLength": 1 },
+    "workflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "channel", "job_type"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "channel": { "enum": ["web", "cli"] },
+        "job_type": { "type": ["string", "null"] }
+      }
+    },
+    "reason": { "type": "string", "minLength": 1 },
+    "required_inputs": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "missing_inputs": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "artifact_bindings": { "type": "object" },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model_get_args", "cost_args", "create_args", "handoff", "catalog_verification_required"],
+      "properties": {
+        "model_get_args": { "type": ["array", "null"], "items": { "type": "string" } },
+        "cost_args": { "type": "null" },
+        "create_args": { "type": "null" },
+        "handoff": { "type": ["object", "null"] },
+        "catalog_verification_required": { "const": true }
+      }
+    },
+    "follow_up_routes": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_before_generation", "approved"],
+      "properties": {
+        "required_before_generation": { "const": true },
+        "approved": { "const": false }
+      }
+    },
+    "status": { "enum": ["blocked_missing_inputs", "ready_for_web_handoff", "ready_for_provider_compilation", "ready_for_analysis"] }
+  }
+}

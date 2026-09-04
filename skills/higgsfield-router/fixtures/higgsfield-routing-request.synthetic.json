@@ -1,0 +1,20 @@
+{
+  "contract": "HIGGSFIELD_ROUTING_REQUEST",
+  "version": "0.1.0",
+  "request_id": "synthetic-valentina-product-ad",
+  "intent": "marketing_video",
+  "brief": "Una portavoz sintetica presenta un producto autorizado en tres beats verticales.",
+  "inputs": {
+    "character_pack_ref": "../character-pack-builder/fixtures/character-pack.synthetic.json",
+    "sequence_continuity_ref": "../sequence-continuity-builder/fixtures/sequence-continuity.synthetic.json",
+    "shot_plan_ref": "../shot-plan-builder/fixtures/shot-plan.synthetic.json",
+    "reference_images": ["private-assets/product-packshot.png"]
+  },
+  "delivery": {
+    "aspect_ratio": "9:16",
+    "resolution": "720p",
+    "duration_s": 15,
+    "generate_audio": false
+  },
+  "priorities": ["identity", "objects", "script", "cost"]
+}

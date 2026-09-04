@@ -1,0 +1,4 @@
+interface:
+  display_name: "Higgsfield Router"
+  short_description: "Elige el flujo correcto de Higgsfield"
+  default_prompt: "Usa $higgsfield-router para elegir y preparar el mejor flujo de Higgsfield para este pedido."

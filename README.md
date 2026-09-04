@@ -6,13 +6,14 @@ Este repositorio no comparte working tree con la version de Claude. Cada impleme
 
 ## Estado
 
-Seis capacidades construidas y verificadas:
+Siete capacidades construidas y verificadas:
 
 - `video-reference-scanner`: referencia -> evidencia y gramatica audiovisual.
 - `character-pack-builder`: referencias autorizadas -> identidad portable y versionada.
 - `sequence-continuity-builder`: guion o referencia compleja -> estados verificables de personajes y objetos.
 - `shot-plan-builder`: concepto + gramatica + character pack -> contrato neutral de planos.
 - `keyframe-test-builder`: plano + identidad -> candidato estatico con puerta humana antes de animar.
+- `higgsfield-router`: intención -> Studio, preset o `job_type` correcto sin generar ni gastar.
 - `video-vendor-compiler`: keyframe aprobado -> trabajo externo con schema, costo y autorización explícita.
 
 La primera prueba privada usa un personaje sintetico propiedad del usuario. Sus imagenes, manifiestos y planes reales no forman parte del repositorio.
@@ -34,6 +35,7 @@ skills/
   sequence-continuity-builder/ # construida: entidades, beats y continuidad de estados
   shot-plan-builder/        # construida: tratamiento -> contrato de planos
   keyframe-test-builder/    # construida: validar un frame antes de animar
+  higgsfield-router/        # construida: elegir Genjutsu, Cinema, Marketing, preset o modelo
   video-vendor-compiler/    # construida: compilar y controlar el trabajo externo
   video-creative-director/  # proxima: brief -> tratamiento
   continuity-qa/            # proxima: clips -> cumplimiento de checks y control de deriva
