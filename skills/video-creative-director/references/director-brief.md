@@ -10,13 +10,15 @@ ID; revisión actual; alcance pedido; formato/duración objetivo; tipo de entreg
 
 Qué hace funcionar la referencia, con timecodes/enlaces al análisis. Qué queremos provocar en nuestra pieza. Resumen del tratamiento en pocas frases. Limitaciones de acceso visual y auditivo.
 
+Separar lectura del original y propuesta propia. En referencias complejas, enlazar REFERENCE_BREAKDOWN antes de ADAPTATION_MAP; destacar recursos difíciles, dudas y simplificaciones propuestas sin darlas por aprobadas.
+
 ## Conservamos / cambiamos / no reutilizamos
 
 Lista de invariantes y libertades. Separar identidad y marca de estilo. Alcance de derechos y uso de materiales. Ruta recomendada, alternativa y razón; para híbridos, decisión por rango/plano.
 
 ## Artefactos enlazados
 
-Referencia a VIDEO_EVIDENCE, VIDEO_DNA, SCAN_COVERAGE, CHARACTER_PACK, PRODUCT_PACK, CONSISTENCY_TEST, SEQUENCE_CONTINUITY, SHOT_PLAN y HIGGSFIELD_ROUTE cuando existan. Indicar sus revisiones, sin duplicar los contratos. Registrar la receta/configuración y el alcance cubierto por las pruebas; no reutilizar una aprobación si cambió su contexto.
+Referencia a VIDEO_EVIDENCE, VIDEO_DNA, SCAN_COVERAGE, REFERENCE_BREAKDOWN, ADAPTATION_MAP, CHARACTER_PACK, PRODUCT_PACK, CONSISTENCY_TEST, SEQUENCE_CONTINUITY, SHOT_PLAN y HIGGSFIELD_ROUTE cuando existan. Indicar sus revisiones, sin duplicar los contratos. Registrar la receta/configuración y el alcance cubierto por las pruebas; no reutilizar una aprobación si cambió su contexto.
 
 ## Necesidad de anclas por plano
 

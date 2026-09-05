@@ -2,6 +2,8 @@
 
 ## Elegir qué debe permanecer
 
+Esta decisión sigue a la lectura del original. Para referencias complejas, usar [adaptation-map.md](adaptation-map.md): explicar primero recursos y dudas, luego acordar qué mantener, recrear, cambiar u omitir. «Inspirado» no habilita por sí solo a reducir interacciones o capas decisivas sin mostrar la pérdida.
+
 | Intención | Unidad de trabajo | Qué preservar | Control principal |
 | --- | --- | --- | --- |
 | Reemplazo localizado | Plano o rango fuente autorizado | Todo salvo la región/entidad indicada | Comparación temporal antes/después, incluyendo zonas no editadas |
@@ -52,5 +54,7 @@ No exigir cuatro preguntas si una autorización ya cubre varias etapas. Tampoco 
 ## Aprendizajes de una prueba deportiva
 
 La altura del bloque y la postura deben resolverse en el frame, no confiar su corrección al prompt de movimiento. Un salto y una brazada de otro estilo pueden funcionar como montaje de entrenamiento con elipsis, pero no como prueba de una carrera continua. Prohibir zoom facial fue una decisión de esa pieza: no convertirlo en regla universal para retratos o diálogos.
+
+Limitar el rostro no equivale a limitar toda la escena a microgestos. No intentar recuperar mediante recortes una riqueza de acciones que nunca se produjo; si el presupuesto o la estabilidad obligan a simplificar, acordar primero la pérdida creativa. Un piloto técnico logrado no demuestra equivalencia de dirección con la referencia.
 
 Las marcas exactas requieren comprobación independiente. Si fallan, considerar tomas reales, compositing/tracking o una nueva referencia autorizada; ocultarlas puede violar el brief. No prometer corrección perfecta por añadir instrucciones negativas.

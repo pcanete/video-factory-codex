@@ -15,6 +15,7 @@ Comparar evidencia de salida con los contratos y referencias aprobadas. No aprob
 3. Ver el clip completo en movimiento cuando el runtime lo permita. Inspeccionar inicio, desarrollo, contacto/cambio de estado y final; aumentar muestreo en oclusiones y acciones complejas. Si solo se vieron fotogramas, declarar revisión temporal parcial.
 4. Comparar contra fuentes canónicas: identidad/proporciones, marca/texto/patrón, vestuario/objetos, anatomía/contactos, cámara/escala, estados y acción. Revisar las zonas que una sustitución debía dejar intactas, no solo la persona editada.
 5. Evaluar el enlace con planos vecinos: dirección de movimiento y mirada, posición/posesión de objetos, iluminación, continuidad o elipsis intencional. Un clip bonito puede no servir al guion.
+   Con ADAPTATION_MAP, comprobar además cobertura creativa: acciones, interacciones, cámara, capas, transiciones y sincronías comprometidas. Citar recurso, plano y evidencia de salida; registrar lo ausente aunque identidad y anatomía pasen. Comparar contra las decisiones acordadas, no exigir clonación donde se aprobó un cambio.
 6. Registrar `CLIP_QA.md`: plano, job/archivo, revisión contractual, rango inspeccionado, evidencia/timecodes, dimensión, criticidad, estado (`pass`, `fail`, `review`, `not_applicable`), nota y disposición.
 
 ## Disposición de tomas

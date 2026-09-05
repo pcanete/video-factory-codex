@@ -57,6 +57,8 @@ Solo se implementa una capacidad cuando existe un caso real que permita probarla
 
 Referencia/brief -> análisis con cobertura declarada -> decisión de transformación -> tratamiento y continuidad -> anclas necesarias + tablero -> previsualización con tiempos -> producción autorizada -> QA por dimensión -> video ensamblado.
 
+En referencias complejas, la lectura se conserva en `REFERENCE_BREAKDOWN.md`: eventos, interacciones, cámara, capas visuales, montaje y sonido con evidencia temporal y dudas. No se filtra por facilidad de generación. Después, usuario y director acuerdan `ADAPTATION_MAP.md`: qué mantener, clonar/recrear con autorización, cambiar u omitir, qué se gana/pierde y dónde se implementa. El montaje se revisa contra esas decisiones; una imagen aprobada o muchos cortes no demuestran movimiento ni riqueza audiovisual equivalentes. Estos registros son instrucciones de trabajo del agente, no análisis semántico generado automáticamente por el scanner.
+
 Empezar por [video-creative-director](skills/video-creative-director/SKILL.md). El usuario decide sobre propuestas comprensibles; no necesita invocar cada skill. El director puede conservar un video y sustituir elementos, transferir movimiento, crear una secuencia original o combinar rutas, según derechos y capacidades verificadas.
 
 Los frames finales son opcionales y requieren soporte del destino; no todas las rutas necesitan imágenes nuevas. El scanner incorpora una guía de inspección profunda y SCAN_COVERAGE, pero no añade transcripción, escucha ni comprensión automática completa al motor. El compilador CLI actual sigue limitado a imagen inicial a video; no se presenta como adaptador Genjutsu/MCP universal.

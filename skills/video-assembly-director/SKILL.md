@@ -13,6 +13,8 @@ Con un plan original complejo, montar frames aprobados o material existente con 
 
 No generar frames para construir un animatic cuando el video fuente ya permite evaluar el timing de una sustitución. Usar el mínimo de trabajo que pruebe la decisión pendiente.
 
+Marcar explícitamente acciones, cámara, efectos y sonido que el animatic todavía no representa. La aprobación de imágenes no acredita interacción ni energía temporal. En piezas de referencia compleja, contrastar el ADAPTATION_MAP con el conjunto: qué recursos siguen presentes y cuáles se perdieron. No compensar una interacción inexistente contando reencuadres como acciones nuevas.
+
 ## Edición final
 
 1. Recibir tomas y rangos utilizables de [continuity-qa](../continuity-qa/SKILL.md). Una autorización para ensamblar revisión no equivale a aprobación humana definitiva de cada toma.
@@ -25,4 +27,4 @@ No generar frames para construir un animatic cuando el video fuente ya permite e
 
 ## Cierre
 
-Registrar `FINAL_QA.md`: revisión del plan, rangos y límites efectivamente inspeccionados, specs reales, costo observado, pendientes de marca/identidad/audio, destino y estado de entrega. Guardar scripts, fuentes recuperables y decisiones sin credenciales. La aprobación de un presupuesto no autoriza reintentos ilimitados.
+Registrar `FINAL_QA.md`: revisión del plan, rangos y límites efectivamente inspeccionados, specs reales, costo observado, pendientes de marca/identidad/audio, recursos creativos cumplidos o ausentes respecto del mapa acordado, destino y estado de entrega. Guardar scripts, fuentes recuperables y decisiones sin credenciales. La aprobación de un presupuesto no autoriza reintentos ilimitados.

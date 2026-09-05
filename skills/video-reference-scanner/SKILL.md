@@ -10,6 +10,7 @@ Convierte una referencia audiovisual en evidencia verificable y decisiones de di
 ## Invariantes
 
 - El script mide; el agente interpreta.
+- Analizar primero el original tal como es, sin filtrarlo por fotos disponibles, dificultad de generación, presupuesto o restricciones de la futura pieza. Esos factores pertenecen a una decisión posterior del director con el usuario.
 - Separar siempre `observado`, `medido`, `inferido` y `no_determinado`.
 - No atribuir lente, temperatura de color, intencion narrativa o movimiento de camara como hechos si solo se infieren de frames.
 - Conservar timecodes y archivos de evidencia para toda conclusion material.
@@ -24,10 +25,10 @@ Convierte una referencia audiovisual en evidencia verificable y decisiones de di
 4. Para referencias con acciones encadenadas, objetos que cambian de estado, planos secuencia, morphs o transiciones internas, repetir con `--dense`. Esto extrae nueve muestras por plano para distinguir subacciones sin inventar cortes.
 5. Abrir primero `contact.png`, luego las tiras `motion-*.png` y finalmente los frames individuales necesarios. Las posiciones temporales son mediciones; el sentido de cada fase sigue siendo interpretación.
 6. Leer [references/interpretation-guide.md](references/interpretation-guide.md) para sintetizar ritmo, encuadre, camara, luz/color, transiciones, audio y estructura.
-7. En análisis profundo o transformaciones fieles, leer [references/deep-scan.md](references/deep-scan.md), ampliar evidencia donde haya incertidumbre y registrar `SCAN_COVERAGE.md`. No atribuir al modo dense una cobertura temporal o auditiva que no se verificó.
+7. En análisis profundo, adaptación de una referencia compleja o transformaciones fieles, leer [references/deep-scan.md](references/deep-scan.md) y [references/source-reading.md](references/source-reading.md). Ampliar evidencia donde haya incertidumbre y registrar `SCAN_COVERAGE.md` y `REFERENCE_BREAKDOWN.md`. No atribuir al modo dense una cobertura temporal o auditiva que no se verificó.
 8. Escribir en el directorio del escaneo:
    - `VIDEO_DNA.json`: reglas reutilizables con evidencia y confianza.
-   - `VIDEO_REPORT.md`: explicacion humana, limitaciones y vocabulario anclado a planos.
+   - `VIDEO_REPORT.md`: explicación humana del original, limitaciones y vocabulario anclado a planos. No mezclar aquí el guion propuesto ni decisiones todavía no tomadas.
    - `SHOT_TEMPLATE.json`: funciones narrativas y parametros vaciados del contenido original.
 9. Validar los JSON contra los schemas en `schemas/`. Entregar a [video-creative-director](../video-creative-director/SKILL.md) solo si el usuario pidió continuar hacia planificación/producción.
 
@@ -52,6 +53,8 @@ node scripts/scan.mjs referencia.mp4 --out analisis --dense
 Tambien reconoce `VIDEO_FACTORY_FFMPEG` y `VIDEO_FACTORY_FFPROBE`. Si `ffprobe` no existe, obtiene una ficha tecnica reducida desde `ffmpeg` y lo declara.
 
 ## Replicabilidad
+
+Evaluarla después de describir el original; conservarla separada del desglose observado y de su confianza. Un recurso difícil o todavía no implementable sigue siendo parte de la lectura. No clasificar `produccion_segura` con modelo pendiente o sin evidencia propia. Este diagnóstico técnico es consejo, no permiso para omitir recursos.
 
 No declarar que un plano es universalmente posible o imposible. Evaluarlo contra un destino y version concretos cuando se conozcan. Reportar:
 

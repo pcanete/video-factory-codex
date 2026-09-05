@@ -19,10 +19,10 @@ Produce un plan de planos neutral antes de compilar prompts para un proveedor. S
 
 ## Flujo
 
-1. Leer el tratamiento, modo de transformación, `VIDEO_DNA` o `SHOT_TEMPLATE` y packs aprobados que correspondan. No inventar un personaje en piezas centradas únicamente en objetos.
+1. Leer el tratamiento, modo de transformación, `VIDEO_DNA` o `SHOT_TEMPLATE`, ADAPTATION_MAP cuando exista y packs aprobados que correspondan. No inventar un personaje en piezas centradas únicamente en objetos.
 2. Declarar qué se transfiere, qué se conserva por autorización y qué no se reutiliza. Separar escena, plano, beat y job; una acción compleja puede necesitar más de un trabajo y un clip útil puede aportar varios cortes.
-3. Diseñar la secuencia más corta capaz de probar la hipótesis creativa o técnica.
-4. Para cada plano escribir sujeto, acción, encuadre, cámara, luz, entorno, estilo, referencias, transición, riesgo y criterio de éxito.
+3. Si el encargo es un piloto, diseñar la secuencia más corta capaz de probar su hipótesis. Si es una pieza completa, cubrir los recursos y beats aprobados; no convertir el objetivo del piloto en una simplificación permanente del guion.
+4. Para cada plano escribir sujeto, acción (inicio, desarrollo y resultado), interacciones, capas/efectos, encuadre, cámara, luz, entorno, estilo, referencias, transición, riesgo y criterio de éxito. Registrar detalles temporales y vínculos a recursos en el mapa y el tratamiento sin inventar campos del schema. Separar movimiento del sujeto y de cámara; no convertir restricciones faciales en inmovilidad general.
 5. Crear `SHOT_PLAN.json` conforme a [schemas/shot-plan.schema.json](schemas/shot-plan.schema.json).
 6. Validarlo con:
 
@@ -31,6 +31,8 @@ node scripts/validate.mjs "C:\ruta\SHOT_PLAN.json"
 ```
 
 7. Entregar el contrato a un compilador de proveedor solo después de aprobar el plan.
+
+Antes de compilar una adaptación compleja, recorrer los recursos acordados hasta los pedidos concretos. Si una interacción, capa o cambio temporal no tiene implementación, explicitar el faltante; más cortes o crops no lo resuelven automáticamente.
 
 ## Personajes y productos
 
